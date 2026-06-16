@@ -458,30 +458,22 @@
     getDatabase, ref, onValue, set, remove, get
   } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-database.js";
 
-  // ---- PASTE YOUR OWN FIREBASE CONFIG BELOW ----
-  // Get this from: Firebase console > Project settings > General > Your apps > SDK setup and configuration
   const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_PROJECT.firebaseapp.com",
-    databaseURL: "https://YOUR_PROJECT-default-rtdb.firebaseio.com",
-    projectId: "YOUR_PROJECT",
-    storageBucket: "YOUR_PROJECT.appspot.com",
-    messagingSenderId: "YOUR_SENDER_ID",
-    appId: "YOUR_APP_ID"
+    apiKey: "AIzaSyCG2wIVXR4F7U653wjpLsExmk0wNxu30bg",
+    authDomain: "chirstmas-in-july.firebaseapp.com",
+    databaseURL: "https://chirstmas-in-july-default-rtdb.firebaseio.com",
+    projectId: "chirstmas-in-july",
+    storageBucket: "chirstmas-in-july.firebasestorage.app",
+    messagingSenderId: "790032187449",
+    appId: "1:790032187449:web:f385c20af7ab3c0e240de8",
+    measurementId: "G-SF9DRDJLSZ"
   };
-  // -----------------------------------------------
 
-  const isConfigured = firebaseConfig.apiKey !== "YOUR_API_KEY" && firebaseConfig.databaseURL.indexOf("YOUR_PROJECT") === -1;
+  const isConfigured = true;
 
-  let db = null;
-  let claimsRef = null;
-  if (isConfigured) {
-    const app = initializeApp(firebaseConfig);
-    db = getDatabase(app);
-    claimsRef = ref(db, 'claims');
-  } else {
-    document.getElementById('config-warning').classList.add('show');
-  }
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+  const claimsRef = ref(db, 'claims');
 
   const DATA = {
     snacks: [
@@ -552,7 +544,6 @@
     pendingReleaseId = null;
   }
 
-  // remember name locally on this device only, for convenience
   try {
     const savedName = window.localStorage.getItem('potluck-my-name');
     if (savedName) nameInput.value = savedName;
@@ -619,7 +610,6 @@
   }
 
   async function claimItem(itemId, name) {
-    if (!isConfigured) return { ok: false, error: true };
     const key = sanitizeKey(itemId);
     const itemRef = ref(db, 'claims/' + key);
     try {
@@ -639,7 +629,6 @@
   }
 
   async function unclaimItem(itemId) {
-    if (!isConfigured) return;
     const key = sanitizeKey(itemId);
     try {
       await remove(ref(db, 'claims/' + key));
@@ -683,11 +672,6 @@
       const itemId = li.dataset.id;
       const claim = claims[itemId];
       const myName = nameInput.value.trim();
-
-      if (!isConfigured) {
-        document.getElementById('config-warning').classList.add('show');
-        return;
-      }
 
       if (claim) {
         if (myName && claim.name.toLowerCase() === myName.toLowerCase()) {
@@ -753,25 +737,21 @@
 
   renderAll();
 
-  if (isConfigured) {
-    onValue(claimsRef, (snapshot) => {
-      const val = snapshot.val() || {};
-      const newClaims = {};
-      Object.keys(DATA).forEach(sectionKey => {
-        DATA[sectionKey].forEach(item => {
-          const key = sanitizeKey(item.id);
-          if (val[key]) newClaims[item.id] = val[key];
-        });
+  onValue(claimsRef, (snapshot) => {
+    const val = snapshot.val() || {};
+    const newClaims = {};
+    Object.keys(DATA).forEach(sectionKey => {
+      DATA[sectionKey].forEach(item => {
+        const key = sanitizeKey(item.id);
+        if (val[key]) newClaims[item.id] = val[key];
       });
-      claims = newClaims;
-      renderAll();
-      syncPill.textContent = 'Live · synced';
-    }, (error) => {
-      syncPill.textContent = 'Connection error';
     });
-  } else {
-    syncPill.textContent = 'Not connected';
-  }
+    claims = newClaims;
+    renderAll();
+    syncPill.textContent = 'Live · synced';
+  }, (error) => {
+    syncPill.textContent = 'Connection error';
+  });
 </script>
 </body>
 </html>

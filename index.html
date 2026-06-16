@@ -375,7 +375,7 @@
     <div class="card-header">
       <span class="icon">🥗</span>
       <h2>Snacks & Sides</h2>
-      <span class="badge">7 items · serves 20</span>
+      <span class="badge">6 items · serves 20</span>
     </div>
     <ul class="item-list" id="list-snacks"></ul>
   </div>
@@ -469,8 +469,6 @@
     measurementId: "G-SF9DRDJLSZ"
   };
 
-  const isConfigured = true;
-
   const app = initializeApp(firebaseConfig);
   const db = getDatabase(app);
   const claimsRef = ref(db, 'claims');
@@ -482,8 +480,7 @@
       { id: 'snacks-2', name: 'Fruit Salad', note: 'Watermelon, berries, grapes — keep it refreshing & summer-ready', serves: 'Serves 20' },
       { id: 'snacks-3', name: 'Pasta Salad', note: 'Cold Italian or BLT style — enough for 20 as a side', serves: 'Serves 20' },
       { id: 'snacks-4', name: 'Charcuterie Board', note: 'Meats, cheeses, crackers, olives — festive holiday vibes 🎄', serves: 'Serves 15–20' },
-      { id: 'snacks-5', name: 'Macaroni & Cheese', note: 'A crowd-pleasing pan — baked or stovetop, both work!', serves: 'Serves 15–20' },
-      { id: 'snacks-6', name: 'Coleslaw', note: 'Creamy or vinegar-based, pairs great with everything', serves: 'Serves 20' }
+      { id: 'snacks-5', name: 'Macaroni & Cheese', note: 'A crowd-pleasing pan — baked or stovetop, both work!', serves: 'Serves 15–20' }
     ],
     sundae: [
       { id: 'sundae-0', name: 'Vanilla Ice Cream', note: '2–3 half-gallons' },
@@ -504,7 +501,6 @@
       { id: 'drinks-3', name: 'Juice Boxes / Capri Suns', note: 'For the little ones 🧒🏽', serves: 'Kids' }
     ],
     games: [
-      { id: 'games-0', name: '🎁 White Elephant / Gift Exchange', note: 'Optional: everyone brings a $10–$15 wrapped mystery gift' },
       { id: 'games-1', name: '🪅 Piñata Station', note: 'Bring extra candy stuffing if you can — kids & adults love it!' },
       { id: 'games-2', name: '🃏 Card & Board Games', note: 'Spades, Uno, Dominos, Taboo — bring your favorites' },
       { id: 'games-3', name: '🎶 Music / Playlist DJ', note: 'Volunteer to run the speaker & holiday + summer playlist' },
@@ -518,8 +514,7 @@
       { id: 'supplies-0', name: 'Paper Plates & Napkins', note: 'Holiday-themed if possible — red, green, or Christmas prints 🎄' },
       { id: 'supplies-1', name: 'Plastic Utensils', note: 'Forks, knives, spoons for 25+' },
       { id: 'supplies-2', name: 'Serving Spoons & Tongs', note: 'For the potluck dishes — bring with your dish!' },
-      { id: 'supplies-3', name: 'Aluminum Foil & Plastic Wrap', note: 'For covering dishes & leftovers' },
-      { id: 'supplies-4', name: 'Trash Bags', note: 'Extra-large — at least 3–4 bags for 20 people' }
+      { id: 'supplies-3', name: 'Aluminum Foil & Plastic Wrap', note: 'For covering dishes & leftovers' }
     ]
   };
 

@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Christmas in July – Family Potluck List</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:wght@700;900&family=DM+Sans:wght@400;500;600&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --red: #C8102E;
+    --green: #1A6B3C;
+    --gold: #F5A800;
+    --cream: #FFF8F0;
+    --snow: #ffffff;
+    --charcoal: #1C1C1C;
+    --muted: #6B6B6B;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--charcoal);
+    min-height: 100vh;
+    padding: 0 0 60px;
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px; height: 1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+  }
+
+  /* HERO */
+  .hero {
+    background: var(--green);
+    text-align: center;
+    padding: 36px 20px 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '🎄☀️🎄☀️🎄☀️🎄☀️🎄☀️🎄☀️🎄☀️🎄☀️🎄☀️🎄';
+    display: block;
+    font-size: 18px;
+    letter-spacing: 2px;
+    margin-bottom: 16px;
+    opacity: 0.75;
+  }
+  .hero h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(28px, 7vw, 52px);
+    font-weight: 900;
+    color: var(--gold);
+    line-height: 1.1;
+    text-shadow: 2px 3px 0px rgba(0,0,0,0.25);
+  }
+  .hero p {
+    color: #c8f0d8;
+    font-size: 15px;
+    margin-top: 10px;
+    font-weight: 500;
+  }
+  .hero .when-badge {
+    display: inline-block;
+    margin-top: 14px;
+    background: var(--red);
+    color: white;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 7px 20px;
+    border-radius: 40px;
+    letter-spacing: 0.5px;
+  }
+
+  /* NAME BAR */
+  .name-bar {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 14px 16px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .name-bar label { font-size: 13px; color: var(--muted); font-weight: 500; }
+  .name-bar input {
+    flex: 1;
+    min-width: 140px;
+    max-width: 260px;
+    padding: 8px 12px;
+    border: 1.5px solid #d0c8be;
+    border-radius: 20px;
+    font-size: 14px;
+    font-family: 'DM Sans', sans-serif;
+    background: var(--snow);
+    color: var(--charcoal);
+  }
+  .name-bar input:focus { outline: none; border-color: var(--green); }
+  .sync-pill {
+    font-size: 11px;
+    color: var(--muted);
+    margin-left: auto;
+    white-space: nowrap;
+  }
+
+  .config-warning {
+    max-width: 700px;
+    margin: 10px auto 0;
+    padding: 12px 16px;
+    background: #fff0f0;
+    border: 1.5px solid var(--red);
+    border-radius: 12px;
+    font-size: 13px;
+    color: var(--charcoal);
+    display: none;
+  }
+  .config-warning.show { display: block; }
+  .config-warning code {
+    background: #fff;
+    padding: 1px 5px;
+    border-radius: 4px;
+    font-size: 12px;
+  }
+
+  /* PROVIDED BANNER */
+  .provided-banner {
+    background: var(--red);
+    color: white;
+    text-align: center;
+    padding: 14px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+  }
+  .provided-banner span { font-size: 18px; margin: 0 4px; }
+
+  /* SECTIONS */
+  .sections {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 28px 16px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .card {
+    background: var(--snow);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    border: 1.5px solid #e8e0d8;
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 20px;
+    border-bottom: 1.5px solid #f0ece6;
+  }
+  .card-header .icon { font-size: 26px; }
+  .card-header h2 {
+    font-family: 'Fraunces', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--green);
+  }
+  .card-header .badge {
+    margin-left: auto;
+    background: var(--gold);
+    color: var(--charcoal);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 20px;
+    white-space: nowrap;
+    letter-spacing: 0.4px;
+  }
+
+  .item-list { list-style: none; }
+  .item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 13px 20px;
+    border-bottom: 1px solid #f5f1ec;
+    transition: background 0.15s;
+    cursor: pointer;
+  }
+  .item:last-child { border-bottom: none; }
+  .item:hover { background: #fdf8f3; }
+
+  .item-check {
+    width: 22px;
+    height: 22px;
+    border-radius: 6px;
+    border: 2px solid #d0c8be;
+    flex-shrink: 0;
+    margin-top: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    transition: all 0.15s;
+  }
+  .item.claimed .item-check {
+    background: var(--green);
+    border-color: var(--green);
+    color: white;
+  }
+  .item.claimed .item-name { text-decoration: line-through; color: var(--muted); }
+
+  .item-text { flex: 1; min-width: 0; }
+  .item-name { font-size: 15px; font-weight: 600; color: var(--charcoal); }
+  .item-note { font-size: 12px; color: var(--muted); margin-top: 2px; }
+  .item-claimed-by {
+    font-size: 12px;
+    color: var(--green);
+    font-weight: 600;
+    margin-top: 3px;
+  }
+  .item-serves {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--red);
+    background: #fff0f2;
+    padding: 3px 8px;
+    border-radius: 12px;
+    white-space: nowrap;
+    align-self: center;
+    flex-shrink: 0;
+  }
+
+  .item-release {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 1.5px solid #e0d8cc;
+    background: var(--snow);
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    align-self: center;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .item-release:hover { background: #fff0f0; border-color: var(--red); color: var(--red); }
+
+  /* SUNDAE special layout */
+  .sundae-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+  }
+  .sundae-grid .item { border-right: 1px solid #f5f1ec; }
+  .sundae-grid .item:nth-child(even) { border-right: none; }
+
+  /* PINATA highlight */
+  .pinata-note {
+    background: linear-gradient(135deg, #fff7e0, #fff0f2);
+    padding: 14px 20px;
+    font-size: 13px;
+    color: var(--muted);
+    border-top: 1.5px dashed #f0e0c0;
+    text-align: center;
+    font-weight: 500;
+  }
+
+  /* NAME PROMPT MODAL */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+    padding: 20px;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal-box {
+    background: var(--snow);
+    border-radius: 16px;
+    padding: 20px;
+    max-width: 320px;
+    width: 100%;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+  }
+  .modal-box h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 17px;
+    color: var(--green);
+    margin-bottom: 4px;
+  }
+  .modal-box p { font-size: 13px; color: var(--muted); margin-bottom: 12px; }
+  .modal-box input {
+    width: 100%;
+    padding: 9px 12px;
+    border: 1.5px solid #d0c8be;
+    border-radius: 10px;
+    font-size: 14px;
+    font-family: 'DM Sans', sans-serif;
+    margin-bottom: 12px;
+  }
+  .modal-box input:focus { outline: none; border-color: var(--green); }
+  .modal-actions { display: flex; gap: 8px; }
+  .modal-actions button {
+    flex: 1;
+    padding: 9px 12px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .btn-confirm { background: var(--green); color: white; }
+  .btn-cancel { background: #f0ece6; color: var(--charcoal); }
+  .modal-error { font-size: 12px; color: var(--red); margin-top: -6px; margin-bottom: 10px; display: none; }
+
+  /* FOOTER */
+  .footer {
+    max-width: 700px;
+    margin: 28px auto 0;
+    padding: 0 16px;
+    text-align: center;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .footer strong { color: var(--red); }
+
+  @media (max-width: 480px) {
+    .sundae-grid { grid-template-columns: 1fr; }
+    .sundae-grid .item { border-right: none; }
+  }
+</style>
+</head>
+<body>
+
+<h2 class="sr-only">Christmas in July family potluck sign-up sheet, shared and synced across all devices</h2>
+
+<div class="hero">
+  <h1>Christmas in July 🎄</h1>
+  <p>Family Reunion Potluck Sign-Up · Tap an item to claim it!</p>
+  <span class="when-badge">🎅🏽 June 27 · ~4PM · 20 People 🎅🏽</span>
+</div>
+
+<div class="name-bar">
+  <label for="my-name">Your name</label>
+  <input type="text" id="my-name" placeholder="e.g. Maria" maxlength="40" />
+  <span class="sync-pill" id="sync-pill">Loading…</span>
+</div>
+
+<div class="config-warning" id="config-warning">
+  Firebase isn't configured yet — claims won't save. Edit the <code>firebaseConfig</code> object near the bottom of this file with your own project's keys from the Firebase console.
+</div>
+
+<div class="provided-banner">
+  <span>🍕</span> Pizza &nbsp;·&nbsp; <span>🎂</span> Cake &nbsp;·&nbsp; <span>🍺</span> Beer — All provided by the host!
+</div>
+
+<div class="sections">
+
+  <!-- SNACKS & SIDES -->
+  <div class="card">
+    <div class="card-header">
+      <span class="icon">🥗</span>
+      <h2>Snacks & Sides</h2>
+      <span class="badge">7 items · serves 20</span>
+    </div>
+    <ul class="item-list" id="list-snacks"></ul>
+  </div>
+
+  <!-- SUNDAE BAR -->
+  <div class="card">
+    <div class="card-header">
+      <span class="icon">🍨</span>
+      <h2>Sundae Bar</h2>
+      <span class="badge">Build-your-own station</span>
+    </div>
+    <ul class="item-list sundae-grid" id="list-sundae"></ul>
+  </div>
+
+  <!-- DRINKS -->
+  <div class="card">
+    <div class="card-header">
+      <span class="icon">🥤</span>
+      <h2>Drinks</h2>
+      <span class="badge">Non-alcoholic + mixers</span>
+    </div>
+    <ul class="item-list" id="list-drinks"></ul>
+  </div>
+
+  <!-- GAMES & ACTIVITIES -->
+  <div class="card">
+    <div class="card-header">
+      <span class="icon">🎮</span>
+      <h2>Games & Activities</h2>
+      <span class="badge">Bring if you have it!</span>
+    </div>
+    <ul class="item-list" id="list-games"></ul>
+    <div class="pinata-note">🪅 Piñata provided by host — bring extra candy to stuff it if you'd like to add more!</div>
+  </div>
+
+  <!-- SUPPLIES -->
+  <div class="card">
+    <div class="card-header">
+      <span class="icon">🧻</span>
+      <h2>Supplies Needed</h2>
+      <span class="badge">Essentials</span>
+    </div>
+    <ul class="item-list" id="list-supplies"></ul>
+  </div>
+
+</div>
+
+<div class="footer">
+  <p>🎄 <strong>Pizza · Cake · Beer</strong> provided by your host · Tap any item to claim or release it · June 27th, ~4PM 🎄</p>
+  <p style="margin-top:8px;">Have an activity idea? Drop it in the group chat! 💬</p>
+</div>
+
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal-box">
+    <h3 id="modal-title">Claim this item</h3>
+    <p id="modal-item-name"></p>
+    <input type="text" id="modal-name-input" placeholder="Your name" maxlength="40" />
+    <p class="modal-error" id="modal-error">Someone just claimed this — try another item!</p>
+    <div class="modal-actions">
+      <button class="btn-cancel" id="modal-cancel">Cancel</button>
+      <button class="btn-confirm" id="modal-confirm">Claim it</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="release-overlay">
+  <div class="modal-box">
+    <h3>Release this item?</h3>
+    <p id="release-item-name" style="margin-bottom: 16px;"></p>
+    <div class="modal-actions">
+      <button class="btn-cancel" id="release-cancel">Cancel</button>
+      <button class="btn-confirm" id="release-confirm" style="background: var(--red);">Release it</button>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+  import {
+    getDatabase, ref, onValue, set, remove, get
+  } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-database.js";
+
+  // ---- PASTE YOUR OWN FIREBASE CONFIG BELOW ----
+  // Get this from: Firebase console > Project settings > General > Your apps > SDK setup and configuration
+  const firebaseConfig = {
+    apiKey: "YOUR_API_KEY",
+    authDomain: "YOUR_PROJECT.firebaseapp.com",
+    databaseURL: "https://YOUR_PROJECT-default-rtdb.firebaseio.com",
+    projectId: "YOUR_PROJECT",
+    storageBucket: "YOUR_PROJECT.appspot.com",
+    messagingSenderId: "YOUR_SENDER_ID",
+    appId: "YOUR_APP_ID"
+  };
+  // -----------------------------------------------
+
+  const isConfigured = firebaseConfig.apiKey !== "YOUR_API_KEY" && firebaseConfig.databaseURL.indexOf("YOUR_PROJECT") === -1;
+
+  let db = null;
+  let claimsRef = null;
+  if (isConfigured) {
+    const app = initializeApp(firebaseConfig);
+    db = getDatabase(app);
+    claimsRef = ref(db, 'claims');
+  } else {
+    document.getElementById('config-warning').classList.add('show');
+  }
+
+  const DATA = {
+    snacks: [
+      { id: 'snacks-0', name: 'Chips & Dips Trio', note: 'Salsa, guacamole & queso — bring a big bag of tortilla chips', serves: 'Serves 20' },
+      { id: 'snacks-1', name: 'Veggie & Hummus Platter', note: 'Carrots, celery, cucumbers, bell peppers + 2 tubs hummus', serves: 'Serves 20' },
+      { id: 'snacks-2', name: 'Fruit Salad', note: 'Watermelon, berries, grapes — keep it refreshing & summer-ready', serves: 'Serves 20' },
+      { id: 'snacks-3', name: 'Pasta Salad', note: 'Cold Italian or BLT style — enough for 20 as a side', serves: 'Serves 20' },
+      { id: 'snacks-4', name: 'Charcuterie Board', note: 'Meats, cheeses, crackers, olives — festive holiday vibes 🎄', serves: 'Serves 15–20' },
+      { id: 'snacks-5', name: 'Macaroni & Cheese', note: 'A crowd-pleasing pan — baked or stovetop, both work!', serves: 'Serves 15–20' },
+      { id: 'snacks-6', name: 'Coleslaw', note: 'Creamy or vinegar-based, pairs great with everything', serves: 'Serves 20' }
+    ],
+    sundae: [
+      { id: 'sundae-0', name: 'Vanilla Ice Cream', note: '2–3 half-gallons' },
+      { id: 'sundae-1', name: 'Chocolate Ice Cream', note: '2 half-gallons' },
+      { id: 'sundae-2', name: 'Strawberry Ice Cream', note: '1–2 half-gallons' },
+      { id: 'sundae-3', name: 'Hot Fudge & Caramel', note: '2 jars each, warming crockpot optional' },
+      { id: 'sundae-4', name: 'Whipped Cream', note: '3–4 cans of spray whip' },
+      { id: 'sundae-5', name: 'Sprinkles & Nuts', note: 'Rainbow sprinkles, chopped walnuts & pecans' },
+      { id: 'sundae-6', name: 'Cherries & Bananas', note: 'Maraschino cherries + fresh banana slices' },
+      { id: 'sundae-7', name: 'Crushed Oreos & Brownies', note: 'Mix-in toppings — homemade or store-bought' },
+      { id: 'sundae-8', name: 'Bowls, Spoons & Scooper', note: 'Disposable cups or bowls for 25+' },
+      { id: 'sundae-9', name: 'Strawberry Sauce', note: 'Fresh or jarred strawberry topping' }
+    ],
+    drinks: [
+      { id: 'drinks-0', name: 'Lemonade / Punch', note: 'Big batch — pink lemonade or a Christmas-themed red punch 🎄', serves: 'Gallon+' },
+      { id: 'drinks-1', name: 'Sodas & Sparkling Water', note: 'Coke, Sprite, ginger ale, LaCroix — variety pack', serves: '2–3 cases' },
+      { id: 'drinks-2', name: 'Water & Ice', note: 'Cases of water bottles + 2 bags of ice for coolers', serves: 'For 20' },
+      { id: 'drinks-3', name: 'Juice Boxes / Capri Suns', note: 'For the little ones 🧒🏽', serves: 'Kids' }
+    ],
+    games: [
+      { id: 'games-0', name: '🎁 White Elephant / Gift Exchange', note: 'Optional: everyone brings a $10–$15 wrapped mystery gift' },
+      { id: 'games-1', name: '🪅 Piñata Station', note: 'Bring extra candy stuffing if you can — kids & adults love it!' },
+      { id: 'games-2', name: '🃏 Card & Board Games', note: 'Spades, Uno, Dominos, Taboo — bring your favorites' },
+      { id: 'games-3', name: '🎶 Music / Playlist DJ', note: 'Volunteer to run the speaker & holiday + summer playlist' },
+      { id: 'games-4', name: '🏆 Family Trivia', note: 'Who knows the family best? Print questions or run it live' },
+      { id: 'games-5', name: '🎯 Cornhole / Ladder Toss', note: 'Outdoor yard games — bring a set if you own one' },
+      { id: 'games-6', name: '💃🏽 Dance-Off / Karaoke', note: 'Friendly competition — phone + speaker setup works fine' },
+      { id: 'games-7', name: '📸 Photo Booth Corner', note: 'Christmas props + a ring light — someone bring a tripod!' },
+      { id: 'games-8', name: '🎨 Kids Craft Station', note: 'Christmas ornament decorating for the little ones' }
+    ],
+    supplies: [
+      { id: 'supplies-0', name: 'Paper Plates & Napkins', note: 'Holiday-themed if possible — red, green, or Christmas prints 🎄' },
+      { id: 'supplies-1', name: 'Plastic Utensils', note: 'Forks, knives, spoons for 25+' },
+      { id: 'supplies-2', name: 'Serving Spoons & Tongs', note: 'For the potluck dishes — bring with your dish!' },
+      { id: 'supplies-3', name: 'Aluminum Foil & Plastic Wrap', note: 'For covering dishes & leftovers' },
+      { id: 'supplies-4', name: 'Trash Bags', note: 'Extra-large — at least 3–4 bags for 20 people' }
+    ]
+  };
+
+  let claims = {};
+  let pendingItemId = null;
+  let pendingReleaseId = null;
+
+  const nameInput = document.getElementById('my-name');
+  const overlay = document.getElementById('modal-overlay');
+  const modalItemName = document.getElementById('modal-item-name');
+  const modalNameInput = document.getElementById('modal-name-input');
+  const modalError = document.getElementById('modal-error');
+  const modalConfirm = document.getElementById('modal-confirm');
+  const modalCancel = document.getElementById('modal-cancel');
+  const syncPill = document.getElementById('sync-pill');
+  const releaseOverlay = document.getElementById('release-overlay');
+  const releaseConfirm = document.getElementById('release-confirm');
+  const releaseCancel = document.getElementById('release-cancel');
+
+  function closeReleaseModal() {
+    releaseOverlay.classList.remove('open');
+    pendingReleaseId = null;
+  }
+
+  // remember name locally on this device only, for convenience
+  try {
+    const savedName = window.localStorage.getItem('potluck-my-name');
+    if (savedName) nameInput.value = savedName;
+  } catch (e) {}
+  nameInput.addEventListener('change', () => {
+    try { window.localStorage.setItem('potluck-my-name', nameInput.value.trim()); } catch (e) {}
+  });
+
+  function escapeHtml(str) {
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  function sanitizeKey(id) {
+    return id.replace(/[.#$\[\]\/]/g, '_');
+  }
+
+  function renderSection(sectionKey) {
+    const ul = document.getElementById('list-' + sectionKey);
+    if (!ul) return;
+    ul.innerHTML = DATA[sectionKey].map(item => {
+      const claim = claims[item.id];
+      const claimedClass = claim ? ' claimed' : '';
+      const claimedByHtml = claim
+        ? '<div class="item-claimed-by">✓ Claimed by ' + escapeHtml(claim.name) + '</div>'
+        : '';
+      const servesHtml = item.serves
+        ? '<span class="item-serves">' + escapeHtml(item.serves) + '</span>'
+        : '';
+      const releaseHtml = claim
+        ? '<button class="item-release" data-release-id="' + item.id + '" aria-label="Release this item" title="Release this item">✕</button>'
+        : '';
+      return (
+        '<li class="item' + claimedClass + '" data-id="' + item.id + '">' +
+          '<div class="item-check">' + (claim ? '✓' : '') + '</div>' +
+          '<div class="item-text">' +
+            '<div class="item-name">' + escapeHtml(item.name) + '</div>' +
+            '<div class="item-note">' + escapeHtml(item.note) + '</div>' +
+            claimedByHtml +
+          '</div>' +
+          servesHtml +
+          releaseHtml +
+        '</li>'
+      );
+    }).join('');
+  }
+
+  function renderAll() {
+    Object.keys(DATA).forEach(renderSection);
+  }
+
+  function findItemById(id) {
+    for (const key of Object.keys(DATA)) {
+      const found = DATA[key].find(i => i.id === id);
+      if (found) return found;
+    }
+    return null;
+  }
+
+  function renderSectionForItem(itemId) {
+    const sectionKey = itemId.split('-')[0];
+    renderSection(sectionKey);
+  }
+
+  async function claimItem(itemId, name) {
+    if (!isConfigured) return { ok: false, error: true };
+    const key = sanitizeKey(itemId);
+    const itemRef = ref(db, 'claims/' + key);
+    try {
+      const snap = await get(itemRef);
+      if (snap.exists()) {
+        const existing = snap.val();
+        claims[itemId] = existing;
+        renderSectionForItem(itemId);
+        return { ok: false, claimedBy: existing.name };
+      }
+      const claimData = { name, claimedAt: new Date().toISOString() };
+      await set(itemRef, claimData);
+      return { ok: true };
+    } catch (e) {
+      return { ok: false, error: true };
+    }
+  }
+
+  async function unclaimItem(itemId) {
+    if (!isConfigured) return;
+    const key = sanitizeKey(itemId);
+    try {
+      await remove(ref(db, 'claims/' + key));
+    } catch (e) {}
+  }
+
+  function openModalFor(itemId) {
+    const item = findItemById(itemId);
+    if (!item) return;
+    pendingItemId = itemId;
+    modalItemName.textContent = item.name;
+    modalNameInput.value = nameInput.value.trim();
+    modalError.style.display = 'none';
+    overlay.classList.add('open');
+    setTimeout(() => modalNameInput.focus(), 50);
+  }
+
+  function closeModal() {
+    overlay.classList.remove('open');
+    pendingItemId = null;
+  }
+
+  document.querySelectorAll('.item-list').forEach(ul => {
+    ul.addEventListener('click', async (e) => {
+      const releaseBtn = e.target.closest('.item-release');
+      if (releaseBtn) {
+        const itemId = releaseBtn.dataset.releaseId;
+        const claim = claims[itemId];
+        const item = findItemById(itemId);
+        if (claim && item) {
+          pendingReleaseId = itemId;
+          document.getElementById('release-item-name').innerHTML =
+            escapeHtml(item.name) + '<br><span style="color: var(--muted); font-size: 12px;">Currently claimed by ' + escapeHtml(claim.name) + '</span>';
+          releaseOverlay.classList.add('open');
+        }
+        return;
+      }
+
+      const li = e.target.closest('.item');
+      if (!li) return;
+      const itemId = li.dataset.id;
+      const claim = claims[itemId];
+      const myName = nameInput.value.trim();
+
+      if (!isConfigured) {
+        document.getElementById('config-warning').classList.add('show');
+        return;
+      }
+
+      if (claim) {
+        if (myName && claim.name.toLowerCase() === myName.toLowerCase()) {
+          await unclaimItem(itemId);
+        } else {
+          openModalFor(itemId);
+          modalConfirm.textContent = 'Release & re-claim';
+          document.getElementById('modal-title').textContent = 'Already claimed';
+          modalError.textContent = 'Currently claimed by ' + claim.name + '. Enter your name to take it instead.';
+          modalError.style.display = 'block';
+        }
+        return;
+      }
+
+      if (myName) {
+        const res = await claimItem(itemId, myName);
+        if (!res.ok && res.claimedBy) {
+          openModalFor(itemId);
+          modalError.textContent = res.claimedBy + ' just claimed this — try another item!';
+          modalError.style.display = 'block';
+        }
+      } else {
+        document.getElementById('modal-title').textContent = 'Claim this item';
+        modalConfirm.textContent = 'Claim it';
+        openModalFor(itemId);
+      }
+    });
+  });
+
+  releaseConfirm.addEventListener('click', async () => {
+    if (pendingReleaseId) {
+      await unclaimItem(pendingReleaseId);
+    }
+    closeReleaseModal();
+  });
+  releaseCancel.addEventListener('click', closeReleaseModal);
+  releaseOverlay.addEventListener('click', (e) => { if (e.target === releaseOverlay) closeReleaseModal(); });
+
+  modalConfirm.addEventListener('click', async () => {
+    const name = modalNameInput.value.trim();
+    if (!name) {
+      modalError.textContent = 'Please enter your name.';
+      modalError.style.display = 'block';
+      return;
+    }
+    nameInput.value = name;
+    try { window.localStorage.setItem('potluck-my-name', name); } catch (e) {}
+    const res = await claimItem(pendingItemId, name);
+    if (res.ok) {
+      closeModal();
+    } else if (res.claimedBy) {
+      modalError.textContent = res.claimedBy + ' just claimed this — try another item!';
+      modalError.style.display = 'block';
+    } else {
+      modalError.textContent = 'Something went wrong, please try again.';
+      modalError.style.display = 'block';
+    }
+  });
+
+  modalCancel.addEventListener('click', closeModal);
+  overlay.addEventListener('click', (e) => { if (e.target === overlay) closeModal(); });
+  modalNameInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') modalConfirm.click(); });
+
+  renderAll();
+
+  if (isConfigured) {
+    onValue(claimsRef, (snapshot) => {
+      const val = snapshot.val() || {};
+      const newClaims = {};
+      Object.keys(DATA).forEach(sectionKey => {
+        DATA[sectionKey].forEach(item => {
+          const key = sanitizeKey(item.id);
+          if (val[key]) newClaims[item.id] = val[key];
+        });
+      });
+      claims = newClaims;
+      renderAll();
+      syncPill.textContent = 'Live · synced';
+    }, (error) => {
+      syncPill.textContent = 'Connection error';
+    });
+  } else {
+    syncPill.textContent = 'Not connected';
+  }
+</script>
+</body>
+</html>

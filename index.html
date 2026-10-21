@@ -3,63 +3,76 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Christmas in July – Family Potluck List</title>
+<title>Family Potluck List</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@700;900&family=DM+Sans:wght@400;500;600&display=swap">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Fraunces:wght@700;900&family=DM+Sans:wght@400;500;600&display=swap');
-
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+  /* Each event file overrides the theme colors below. */
   :root {
-    --red: #C8102E;
-    --green: #1A6B3C;
-    --gold: #F5A800;
-    --cream: #FFF8F0;
-    --snow: #ffffff;
-    --charcoal: #1C1C1C;
+    --primary: #1A6B3C;
+    --accent: #C8102E;
+    --accent-soft: #fff0f2;
+    --highlight: #F5A800;
+    --bg: #FFF8F0;
+    --hero-text: #c8f0d8;
+    --surface: #ffffff;
+    --text: #1C1C1C;
     --muted: #6B6B6B;
+    --border: #e8e0d8;
+    --divider: #f5f1ec;
+    --hover: #fdf8f3;
+    --input-border: #d0c8be;
   }
 
   body {
     font-family: 'DM Sans', sans-serif;
-    background: var(--cream);
-    color: var(--charcoal);
+    background: var(--bg);
+    color: var(--text);
     min-height: 100vh;
     padding: 0 0 60px;
   }
+
+  [hidden] { display: none !important; }
 
   .sr-only {
     position: absolute;
     width: 1px; height: 1px;
     overflow: hidden;
     clip: rect(0,0,0,0);
+    white-space: nowrap;
   }
 
   /* HERO */
   .hero {
-    background: var(--green);
+    background: var(--primary);
     text-align: center;
     padding: 36px 20px 28px;
     position: relative;
     overflow: hidden;
   }
-  .hero::before {
-    content: '🎄☀️🎄☀️🎄☀️🎄☀️🎄☀️🎄☀️🎄☀️🎄☀️🎄☀️🎄';
+  .hero-strip {
     display: block;
     font-size: 18px;
     letter-spacing: 2px;
     margin-bottom: 16px;
     opacity: 0.75;
+    white-space: nowrap;
+    overflow: hidden;
   }
   .hero h1 {
     font-family: 'Fraunces', serif;
     font-size: clamp(28px, 7vw, 52px);
     font-weight: 900;
-    color: var(--gold);
+    color: var(--highlight);
     line-height: 1.1;
     text-shadow: 2px 3px 0px rgba(0,0,0,0.25);
+    min-height: 1.1em;
   }
   .hero p {
-    color: #c8f0d8;
+    color: var(--hero-text);
     font-size: 15px;
     margin-top: 10px;
     font-weight: 500;
@@ -67,7 +80,7 @@
   .hero .when-badge {
     display: inline-block;
     margin-top: 14px;
-    background: var(--red);
+    background: var(--accent);
     color: white;
     font-size: 13px;
     font-weight: 600;
@@ -75,6 +88,7 @@
     border-radius: 40px;
     letter-spacing: 0.5px;
   }
+  .hero .when-badge:empty { display: none; }
 
   /* NAME BAR */
   .name-bar {
@@ -92,34 +106,34 @@
     min-width: 140px;
     max-width: 260px;
     padding: 8px 12px;
-    border: 1.5px solid #d0c8be;
+    border: 1.5px solid var(--input-border);
     border-radius: 20px;
     font-size: 14px;
     font-family: 'DM Sans', sans-serif;
-    background: var(--snow);
-    color: var(--charcoal);
+    background: var(--surface);
+    color: var(--text);
   }
-  .name-bar input:focus { outline: none; border-color: var(--green); }
+  .name-bar input:focus { outline: none; border-color: var(--primary); }
   .sync-pill {
     font-size: 11px;
     color: var(--muted);
     margin-left: auto;
     white-space: nowrap;
   }
+  .sync-pill.bad { color: var(--accent); font-weight: 600; }
 
-  .config-warning {
-    max-width: 700px;
+  .notice {
+    max-width: 668px;
     margin: 10px auto 0;
     padding: 12px 16px;
     background: #fff0f0;
-    border: 1.5px solid var(--red);
+    border: 1.5px solid var(--accent);
     border-radius: 12px;
     font-size: 13px;
-    color: var(--charcoal);
-    display: none;
+    color: var(--text);
   }
-  .config-warning.show { display: block; }
-  .config-warning code {
+  @media (max-width: 700px) { .notice { margin: 10px 16px 0; } }
+  .notice code {
     background: #fff;
     padding: 1px 5px;
     border-radius: 4px;
@@ -128,10 +142,11 @@
 
   /* PROVIDED BANNER */
   .provided-banner {
-    background: var(--red);
+    background: var(--accent);
     color: white;
     text-align: center;
     padding: 14px 20px;
+    margin-top: 14px;
     font-size: 14px;
     font-weight: 600;
     letter-spacing: 0.3px;
@@ -149,11 +164,11 @@
   }
 
   .card {
-    background: var(--snow);
+    background: var(--surface);
     border-radius: 16px;
     overflow: hidden;
     box-shadow: 0 2px 12px rgba(0,0,0,0.07);
-    border: 1.5px solid #e8e0d8;
+    border: 1.5px solid var(--border);
   }
 
   .card-header {
@@ -168,12 +183,12 @@
     font-family: 'Fraunces', serif;
     font-size: 20px;
     font-weight: 700;
-    color: var(--green);
+    color: var(--primary);
   }
   .card-header .badge {
     margin-left: auto;
-    background: var(--gold);
-    color: var(--charcoal);
+    background: var(--highlight);
+    color: var(--text);
     font-size: 11px;
     font-weight: 700;
     padding: 4px 10px;
@@ -188,18 +203,21 @@
     align-items: flex-start;
     gap: 12px;
     padding: 13px 20px;
-    border-bottom: 1px solid #f5f1ec;
+    border-bottom: 1px solid var(--divider);
     transition: background 0.15s;
     cursor: pointer;
   }
   .item:last-child { border-bottom: none; }
-  .item:hover { background: #fdf8f3; }
+  .item:hover { background: var(--hover); }
+  .item:focus-visible { outline: 2px solid var(--primary); outline-offset: -2px; }
+  .item.claimed-writein { cursor: default; }
+  .item.claimed-writein:hover { background: none; }
 
   .item-check {
     width: 22px;
     height: 22px;
     border-radius: 6px;
-    border: 2px solid #d0c8be;
+    border: 2px solid var(--input-border);
     flex-shrink: 0;
     margin-top: 1px;
     display: flex;
@@ -208,27 +226,41 @@
     font-size: 13px;
     transition: all 0.15s;
   }
+  .item.partial .item-check {
+    border-color: var(--primary);
+    color: var(--primary);
+    font-size: 9px;
+    font-weight: 700;
+  }
   .item.claimed .item-check {
-    background: var(--green);
-    border-color: var(--green);
+    background: var(--primary);
+    border-color: var(--primary);
     color: white;
   }
   .item.claimed .item-name { text-decoration: line-through; color: var(--muted); }
 
   .item-text { flex: 1; min-width: 0; }
-  .item-name { font-size: 15px; font-weight: 600; color: var(--charcoal); }
+  .item-name { font-size: 15px; font-weight: 600; color: var(--text); }
   .item-note { font-size: 12px; color: var(--muted); margin-top: 2px; }
+  .item-slots { font-size: 11px; font-weight: 600; color: var(--accent); margin-top: 3px; }
+  .item.claimed .item-slots { color: var(--primary); }
   .item-claimed-by {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4px 6px;
     font-size: 12px;
-    color: var(--green);
+    color: var(--primary);
     font-weight: 600;
-    margin-top: 3px;
+    margin-top: 4px;
   }
+  .item-claimed-by > span:first-child { flex: 1 1 0; min-width: 0; }
+  .claim-note { color: var(--muted); font-weight: 500; }
   .item-serves {
     font-size: 11px;
     font-weight: 600;
-    color: var(--red);
-    background: #fff0f2;
+    color: var(--accent);
+    background: var(--accent-soft);
     padding: 3px 8px;
     border-radius: 12px;
     white-space: nowrap;
@@ -236,37 +268,48 @@
     flex-shrink: 0;
   }
 
+  .tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
+  .tag {
+    font-size: 10.5px;
+    font-weight: 600;
+    color: var(--muted);
+    background: #f4efe8;
+    padding: 2px 7px;
+    border-radius: 10px;
+    white-space: nowrap;
+  }
+  .item-claimed-by .tags { flex-basis: 100%; margin-top: 0; }
+
   .item-release {
-    width: 24px;
-    height: 24px;
+    width: 22px;
+    height: 22px;
     border-radius: 50%;
     border: 1.5px solid #e0d8cc;
-    background: var(--snow);
+    background: var(--surface);
     color: var(--muted);
-    font-size: 13px;
+    font-size: 11px;
     font-weight: 600;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    align-self: center;
     cursor: pointer;
     transition: all 0.15s;
+    font-family: inherit;
   }
-  .item-release:hover { background: #fff0f0; border-color: var(--red); color: var(--red); }
+  .item-release:hover, .item-release:focus-visible { background: #fff0f0; border-color: var(--accent); color: var(--accent); outline: none; }
 
-  /* SUNDAE special layout */
-  .sundae-grid {
+  /* GRID layout (e.g. sundae bar, desserts) */
+  .grid-layout {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 0;
   }
-  .sundae-grid .item { border-right: 1px solid #f5f1ec; }
-  .sundae-grid .item:nth-child(even) { border-right: none; }
+  .grid-layout .item { border-right: 1px solid var(--divider); }
+  .grid-layout .item:nth-child(even) { border-right: none; }
 
-  /* PINATA highlight */
-  .pinata-note {
-    background: linear-gradient(135deg, #fff7e0, #fff0f2);
+  .card-footnote {
+    background: linear-gradient(135deg, #fff7e0, var(--accent-soft));
     padding: 14px 20px;
     font-size: 13px;
     color: var(--muted);
@@ -274,8 +317,48 @@
     text-align: center;
     font-weight: 500;
   }
+  .card-actions {
+    padding: 12px 20px 16px;
+    border-top: 1px solid var(--divider);
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .card-empty { padding: 14px 20px; font-size: 13px; color: var(--muted); }
 
-  /* NAME PROMPT MODAL */
+  .btn {
+    padding: 9px 14px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .btn-primary { background: var(--primary); color: white; }
+  .btn-soft { background: #f0ece6; color: var(--text); }
+  .btn:disabled { opacity: 0.6; cursor: default; }
+
+  /* SUMMARY */
+  .summary-body { padding: 16px 20px; display: flex; flex-direction: column; gap: 14px; }
+  .progress-label { font-size: 14px; font-weight: 600; display: flex; justify-content: space-between; gap: 8px; }
+  .progress-label span:last-child { color: var(--muted); font-weight: 500; font-size: 13px; }
+  .progress-track { height: 10px; background: #f0ece6; border-radius: 6px; overflow: hidden; margin-top: 8px; }
+  .progress-fill { height: 100%; background: var(--primary); border-radius: 6px; transition: width 0.3s; }
+  .summary-row h3 { font-size: 12px; text-transform: uppercase; letter-spacing: 0.6px; color: var(--muted); margin-bottom: 6px; }
+  .chip-list { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 14px;
+    background: var(--accent-soft);
+    color: var(--accent);
+  }
+  .chip.mine { background: #eef4ee; color: var(--primary); background: color-mix(in srgb, var(--primary) 12%, white); }
+  .summary-done { font-size: 13px; color: var(--primary); font-weight: 600; }
+
+  /* MODALS */
   .modal-overlay {
     position: fixed;
     inset: 0;
@@ -288,30 +371,52 @@
   }
   .modal-overlay.open { display: flex; }
   .modal-box {
-    background: var(--snow);
+    background: var(--surface);
     border-radius: 16px;
     padding: 20px;
-    max-width: 320px;
+    max-width: 340px;
     width: 100%;
+    max-height: calc(100vh - 40px);
+    overflow-y: auto;
     box-shadow: 0 8px 30px rgba(0,0,0,0.2);
   }
   .modal-box h3 {
     font-family: 'Fraunces', serif;
     font-size: 17px;
-    color: var(--green);
+    color: var(--primary);
     margin-bottom: 4px;
   }
   .modal-box p { font-size: 13px; color: var(--muted); margin-bottom: 12px; }
-  .modal-box input {
+  .modal-box .modal-detail { font-size: 12px; white-space: pre-line; margin-top: -8px; }
+  .modal-box label.field-label { display: block; font-size: 12px; font-weight: 600; color: var(--muted); margin-bottom: 4px; }
+  .modal-box input[type="text"], .modal-box input[type="number"] {
     width: 100%;
     padding: 9px 12px;
-    border: 1.5px solid #d0c8be;
+    border: 1.5px solid var(--input-border);
     border-radius: 10px;
     font-size: 14px;
     font-family: 'DM Sans', sans-serif;
     margin-bottom: 12px;
+    background: var(--surface);
+    color: var(--text);
   }
-  .modal-box input:focus { outline: none; border-color: var(--green); }
+  .modal-box input:focus { outline: none; border-color: var(--primary); }
+  .field-row { display: flex; gap: 10px; }
+  .field-row > div { flex: 1; }
+  .tag-picker { border: none; margin-bottom: 12px; }
+  .tag-picker legend { font-size: 12px; font-weight: 600; color: var(--muted); margin-bottom: 6px; }
+  .tag-picker .tag-options { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tag-picker label {
+    font-size: 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 9px;
+    border: 1.5px solid var(--input-border);
+    border-radius: 14px;
+    cursor: pointer;
+  }
+  .tag-picker label:has(input:checked) { border-color: var(--primary); color: var(--primary); font-weight: 600; }
   .modal-actions { display: flex; gap: 8px; }
   .modal-actions button {
     flex: 1;
@@ -323,9 +428,11 @@
     cursor: pointer;
     font-family: 'DM Sans', sans-serif;
   }
-  .btn-confirm { background: var(--green); color: white; }
-  .btn-cancel { background: #f0ece6; color: var(--charcoal); }
-  .modal-error { font-size: 12px; color: var(--red); margin-top: -6px; margin-bottom: 10px; display: none; }
+  .modal-actions button:disabled { opacity: 0.6; cursor: default; }
+  .btn-confirm { background: var(--primary); color: white; }
+  .btn-confirm.danger { background: var(--accent); }
+  .btn-cancel { background: #f0ece6; color: var(--text); }
+  .modal-error { font-size: 12px; color: var(--accent); margin-top: -6px; margin-bottom: 10px; }
 
   /* FOOTER */
   .footer {
@@ -336,118 +443,114 @@
     font-size: 13px;
     color: var(--muted);
   }
-  .footer strong { color: var(--red); }
+  .footer p + p { margin-top: 8px; }
+  .footer strong { color: var(--accent); }
 
   @media (max-width: 480px) {
-    .sundae-grid { grid-template-columns: 1fr; }
-    .sundae-grid .item { border-right: none; }
+    .grid-layout { grid-template-columns: 1fr; }
+    .grid-layout .item { border-right: none; }
   }
 </style>
 </head>
 <body>
 
-<h2 class="sr-only">Christmas in July family potluck sign-up sheet, shared and synced across all devices</h2>
-
-<div class="hero">
-  <h1>Christmas in July 🎄</h1>
-  <p>Family Reunion Potluck Sign-Up · Tap an item to claim it!</p>
-  <span class="when-badge">🎅🏽 June 27 · ~4PM · 20 People 🎅🏽</span>
-</div>
+<header class="hero">
+  <span class="hero-strip" id="hero-strip" aria-hidden="true"></span>
+  <h1 id="hero-title"></h1>
+  <p id="hero-subtitle"></p>
+  <span class="when-badge" id="hero-when"></span>
+  <p class="sr-only">Family potluck sign-up sheet, shared and synced across all devices</p>
+</header>
 
 <div class="name-bar">
   <label for="my-name">Your name</label>
-  <input type="text" id="my-name" placeholder="e.g. Maria" maxlength="40" />
-  <span class="sync-pill" id="sync-pill">Loading…</span>
+  <input type="text" id="my-name" placeholder="e.g. Maria" maxlength="40" autocomplete="given-name" />
+  <span class="sync-pill" id="sync-pill" role="status">Loading…</span>
 </div>
 
-<div class="config-warning" id="config-warning">
-  Firebase isn't configured yet — claims won't save. Edit the <code>firebaseConfig</code> object near the bottom of this file with your own project's keys from the Firebase console.
-</div>
+<div class="notice" id="notice" role="alert" hidden></div>
 
-<div class="provided-banner">
-  <span>🍕</span> Pizza &nbsp;·&nbsp; <span>🎂</span> Cake &nbsp;·&nbsp; <span>🍺</span> Beer — All provided by the host!
-</div>
+<div class="provided-banner" id="provided-banner" hidden></div>
 
-<div class="sections">
+<main class="sections" id="sections"></main>
 
-  <!-- SNACKS & SIDES -->
-  <div class="card">
-    <div class="card-header">
-      <span class="icon">🥗</span>
-      <h2>Snacks & Sides</h2>
-      <span class="badge">6 items · serves 20</span>
+<footer class="footer" id="footer"></footer>
+
+<!-- Claim an item -->
+<div class="modal-overlay" id="claim-overlay">
+  <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="claim-title">
+    <h3 id="claim-title">Claim this item</h3>
+    <p id="claim-item-name"></p>
+    <label class="field-label" for="claim-name">Your name</label>
+    <input type="text" id="claim-name" placeholder="Your name" maxlength="40" autocomplete="given-name" />
+    <div id="claim-extras">
+      <label class="field-label" for="claim-note">What are you bringing? <span style="font-weight:400">(optional)</span></label>
+      <input type="text" id="claim-note" placeholder="e.g. Grandma's garlic mashed" maxlength="120" />
+      <fieldset class="tag-picker" id="claim-tags"></fieldset>
     </div>
-    <ul class="item-list" id="list-snacks"></ul>
-  </div>
-
-  <!-- SUNDAE BAR -->
-  <div class="card">
-    <div class="card-header">
-      <span class="icon">🍨</span>
-      <h2>Sundae Bar</h2>
-      <span class="badge">Build-your-own station</span>
-    </div>
-    <ul class="item-list sundae-grid" id="list-sundae"></ul>
-  </div>
-
-  <!-- DRINKS -->
-  <div class="card">
-    <div class="card-header">
-      <span class="icon">🥤</span>
-      <h2>Drinks</h2>
-      <span class="badge">Non-alcoholic + mixers</span>
-    </div>
-    <ul class="item-list" id="list-drinks"></ul>
-  </div>
-
-  <!-- GAMES & ACTIVITIES -->
-  <div class="card">
-    <div class="card-header">
-      <span class="icon">🎮</span>
-      <h2>Games & Activities</h2>
-      <span class="badge">Bring if you have it!</span>
-    </div>
-    <ul class="item-list" id="list-games"></ul>
-    <div class="pinata-note">🪅 Piñata provided by host — bring extra candy to stuff it if you'd like to add more!</div>
-  </div>
-
-  <!-- SUPPLIES -->
-  <div class="card">
-    <div class="card-header">
-      <span class="icon">🧻</span>
-      <h2>Supplies Needed</h2>
-      <span class="badge">Essentials</span>
-    </div>
-    <ul class="item-list" id="list-supplies"></ul>
-  </div>
-
-</div>
-
-<div class="footer">
-  <p>🎄 <strong>Pizza · Cake · Beer</strong> provided by your host · Tap any item to claim or release it · June 27th, ~4PM 🎄</p>
-  <p style="margin-top:8px;">Have an activity idea? Drop it in the group chat! 💬</p>
-</div>
-
-<div class="modal-overlay" id="modal-overlay">
-  <div class="modal-box">
-    <h3 id="modal-title">Claim this item</h3>
-    <p id="modal-item-name"></p>
-    <input type="text" id="modal-name-input" placeholder="Your name" maxlength="40" />
-    <p class="modal-error" id="modal-error">Someone just claimed this — try another item!</p>
+    <p class="modal-error" id="claim-error" hidden></p>
     <div class="modal-actions">
-      <button class="btn-cancel" id="modal-cancel">Cancel</button>
-      <button class="btn-confirm" id="modal-confirm">Claim it</button>
+      <button class="btn-cancel" data-close>Cancel</button>
+      <button class="btn-confirm" id="claim-confirm">Claim it</button>
     </div>
   </div>
 </div>
 
-<div class="modal-overlay" id="release-overlay">
-  <div class="modal-box">
-    <h3>Release this item?</h3>
-    <p id="release-item-name" style="margin-bottom: 16px;"></p>
+<!-- Add a write-in dish -->
+<div class="modal-overlay" id="writein-overlay">
+  <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="writein-title">
+    <h3 id="writein-title">Bringing something else?</h3>
+    <p>Add a dish that isn't on the list.</p>
+    <label class="field-label" for="writein-dish">Dish</label>
+    <input type="text" id="writein-dish" placeholder="e.g. Tamales" maxlength="60" />
+    <label class="field-label" for="writein-name">Your name</label>
+    <input type="text" id="writein-name" placeholder="Your name" maxlength="40" autocomplete="given-name" />
+    <label class="field-label" for="writein-note">Details <span style="font-weight:400">(optional)</span></label>
+    <input type="text" id="writein-note" placeholder="e.g. Pork & chicken, about 3 dozen" maxlength="120" />
+    <fieldset class="tag-picker" id="writein-tags"></fieldset>
+    <p class="modal-error" id="writein-error" hidden></p>
     <div class="modal-actions">
-      <button class="btn-cancel" id="release-cancel">Cancel</button>
-      <button class="btn-confirm" id="release-confirm" style="background: var(--red);">Release it</button>
+      <button class="btn-cancel" data-close>Cancel</button>
+      <button class="btn-confirm" id="writein-confirm">Add it</button>
+    </div>
+  </div>
+</div>
+
+<!-- RSVP -->
+<div class="modal-overlay" id="rsvp-overlay">
+  <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="rsvp-title">
+    <h3 id="rsvp-title">RSVP</h3>
+    <p>Let the host know how many are coming in your group.</p>
+    <label class="field-label" for="rsvp-name">Your name</label>
+    <input type="text" id="rsvp-name" placeholder="Your name" maxlength="40" autocomplete="given-name" />
+    <div class="field-row">
+      <div>
+        <label class="field-label" for="rsvp-adults">Adults</label>
+        <input type="number" id="rsvp-adults" min="0" max="30" inputmode="numeric" value="1" />
+      </div>
+      <div>
+        <label class="field-label" for="rsvp-kids">Kids</label>
+        <input type="number" id="rsvp-kids" min="0" max="30" inputmode="numeric" value="0" />
+      </div>
+    </div>
+    <p class="modal-error" id="rsvp-error" hidden></p>
+    <div class="modal-actions">
+      <button class="btn-cancel" data-close>Cancel</button>
+      <button class="btn-confirm" id="rsvp-confirm">Save RSVP</button>
+    </div>
+  </div>
+</div>
+
+<!-- Generic confirm / info -->
+<div class="modal-overlay" id="confirm-overlay">
+  <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="confirm-title">
+    <h3 id="confirm-title"></h3>
+    <p id="confirm-message"></p>
+    <p class="modal-detail" id="confirm-detail"></p>
+    <p class="modal-error" id="confirm-error" hidden></p>
+    <div class="modal-actions">
+      <button class="btn-cancel" id="confirm-cancel" data-close>Cancel</button>
+      <button class="btn-confirm" id="confirm-ok"></button>
     </div>
   </div>
 </div>
@@ -455,8 +558,13 @@
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
   import {
-    getDatabase, ref, onValue, set, remove, get
+    getDatabase, ref, onValue, set, remove, push, runTransaction
   } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-database.js";
+
+  // ── SETTINGS ────────────────────────────────────────────────────────────
+  // The event shown when the link has no ?event=… on it. Each event's details
+  // live in events/<id>.js — see README.md for how to add a new one.
+  const DEFAULT_EVENT_ID = 'thanksgiving-2026';
 
   const firebaseConfig = {
     apiKey: "AIzaSyCG2wIVXR4F7U653wjpLsExmk0wNxu30bg",
@@ -469,284 +577,802 @@
     measurementId: "G-SF9DRDJLSZ"
   };
 
-  const app = initializeApp(firebaseConfig);
-  const db = getDatabase(app);
-  const claimsRef = ref(db, 'claims');
-
-  const DATA = {
-    snacks: [
-      { id: 'snacks-0', name: 'Chips & Dips Trio', note: 'Salsa, guacamole & queso — bring a big bag of tortilla chips', serves: 'Serves 20' },
-      { id: 'snacks-1', name: 'Veggie & Hummus Platter', note: 'Carrots, celery, cucumbers, bell peppers + 2 tubs hummus', serves: 'Serves 20' },
-      { id: 'snacks-2', name: 'Fruit Salad', note: 'Watermelon, berries, grapes — keep it refreshing & summer-ready', serves: 'Serves 20' },
-      { id: 'snacks-3', name: 'Pasta Salad', note: 'Cold Italian or BLT style — enough for 20 as a side', serves: 'Serves 20' },
-      { id: 'snacks-4', name: 'Charcuterie Board', note: 'Meats, cheeses, crackers, olives — festive holiday vibes 🎄', serves: 'Serves 15–20' },
-      { id: 'snacks-5', name: 'Macaroni & Cheese', note: 'A crowd-pleasing pan — baked or stovetop, both work!', serves: 'Serves 15–20' }
-    ],
-    sundae: [
-      { id: 'sundae-0', name: 'Vanilla Ice Cream', note: '2–3 half-gallons' },
-      { id: 'sundae-1', name: 'Chocolate Ice Cream', note: '2 half-gallons' },
-      { id: 'sundae-2', name: 'Strawberry Ice Cream', note: '1–2 half-gallons' },
-      { id: 'sundae-3', name: 'Hot Fudge & Caramel', note: '2 jars each, warming crockpot optional' },
-      { id: 'sundae-4', name: 'Whipped Cream', note: '3–4 cans of spray whip' },
-      { id: 'sundae-5', name: 'Sprinkles & Nuts', note: 'Rainbow sprinkles, chopped walnuts & pecans' },
-      { id: 'sundae-6', name: 'Cherries & Bananas', note: 'Maraschino cherries + fresh banana slices' },
-      { id: 'sundae-7', name: 'Crushed Oreos & Brownies', note: 'Mix-in toppings — homemade or store-bought' },
-      { id: 'sundae-8', name: 'Bowls, Spoons & Scooper', note: 'Disposable cups or bowls for 25+' },
-      { id: 'sundae-9', name: 'Strawberry Sauce', note: 'Fresh or jarred strawberry topping' }
-    ],
-    drinks: [
-      { id: 'drinks-0', name: 'Lemonade / Punch', note: 'Big batch — pink lemonade or a Christmas-themed red punch 🎄', serves: 'Gallon+' },
-      { id: 'drinks-1', name: 'Sodas & Sparkling Water', note: 'Coke, Sprite, ginger ale, LaCroix — variety pack', serves: '2–3 cases' },
-      { id: 'drinks-2', name: 'Water & Ice', note: 'Cases of water bottles + 2 bags of ice for coolers', serves: 'For 20' },
-      { id: 'drinks-3', name: 'Juice Boxes / Capri Suns', note: 'For the little ones 🧒🏽', serves: 'Kids' }
-    ],
-    games: [
-      { id: 'games-1', name: '🪅 Piñata Station', note: 'Bring extra candy stuffing if you can — kids & adults love it!' },
-      { id: 'games-2', name: '🃏 Card & Board Games', note: 'Spades, Uno, Dominos, Taboo — bring your favorites' },
-      { id: 'games-3', name: '🎶 Music / Songburst', note: 'Volunteer to run the speaker & holiday + summer playlist' },
-      { id: 'games-4', name: '🏆 Family Trivia', note: 'Who knows the family best? Print questions or run it live' },
-      { id: 'games-5', name: '🎯 Cornhole / Ladder Toss', note: 'Outdoor yard games — bring a set if you own one' },
-      { id: 'games-6', name: '💃🏽 Dance-Off / Karaoke', note: 'Friendly competition — phone + speaker setup works fine' },
-      { id: 'games-7', name: '📸 Photo Booth Corner', note: 'Christmas props + a ring light — someone bring a tripod!' },
-      { id: 'games-8', name: '🎨 Kids Craft Station', note: 'Christmas ornament decorating for the little ones' }
-    ],
-    supplies: [
-      { id: 'supplies-0', name: 'Paper Plates & Napkins', note: 'Holiday-themed if possible — red, green, or Christmas prints 🎄' },
-      { id: 'supplies-1', name: 'Plastic Utensils', note: 'Forks, knives, spoons for 25+' },
-      { id: 'supplies-2', name: 'Serving Spoons & Tongs', note: 'For the potluck dishes — bring with your dish!' },
-      { id: 'supplies-3', name: 'Aluminum Foil & Plastic Wrap', note: 'For covering dishes & leftovers' }
-    ]
+  const DIETARY_TAGS = {
+    'vegetarian': '🌱 Vegetarian',
+    'vegan': '🌿 Vegan',
+    'gluten-free': '🌾 Gluten-free',
+    'dairy-free': '🥛 Dairy-free',
+    'nuts': '🥜 Contains nuts'
   };
+  // ────────────────────────────────────────────────────────────────────────
 
-  let claims = {};
-  let pendingItemId = null;
-  let pendingReleaseId = null;
-
-  const nameInput = document.getElementById('my-name');
-  const overlay = document.getElementById('modal-overlay');
-  const modalItemName = document.getElementById('modal-item-name');
-  const modalNameInput = document.getElementById('modal-name-input');
-  const modalError = document.getElementById('modal-error');
-  const modalConfirm = document.getElementById('modal-confirm');
-  const modalCancel = document.getElementById('modal-cancel');
-  const syncPill = document.getElementById('sync-pill');
-  const releaseOverlay = document.getElementById('release-overlay');
-  const releaseConfirm = document.getElementById('release-confirm');
-  const releaseCancel = document.getElementById('release-cancel');
-
-  function closeReleaseModal() {
-    releaseOverlay.classList.remove('open');
-    pendingReleaseId = null;
-  }
-
-  try {
-    const savedName = window.localStorage.getItem('potluck-my-name');
-    if (savedName) nameInput.value = savedName;
-  } catch (e) {}
-  nameInput.addEventListener('change', () => {
-    try { window.localStorage.setItem('potluck-my-name', nameInput.value.trim()); } catch (e) {}
-  });
+  const $ = (id) => document.getElementById(id);
+  const nameInput = $('my-name');
+  const syncPill = $('sync-pill');
+  const sectionsEl = $('sections');
 
   function escapeHtml(str) {
-    const div = document.createElement('div');
-    div.textContent = str;
-    return div.innerHTML;
+    return String(str ?? '').replace(/[&<>"']/g, c => (
+      { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]
+    ));
   }
 
   function sanitizeKey(id) {
     return id.replace(/[.#$\[\]\/]/g, '_');
   }
 
-  function renderSection(sectionKey) {
-    const ul = document.getElementById('list-' + sectionKey);
-    if (!ul) return;
-    ul.innerHTML = DATA[sectionKey].map(item => {
-      const claim = claims[item.id];
-      const claimedClass = claim ? ' claimed' : '';
-      const claimedByHtml = claim
-        ? '<div class="item-claimed-by">✓ Claimed by ' + escapeHtml(claim.name) + '</div>'
-        : '';
-      const servesHtml = item.serves
-        ? '<span class="item-serves">' + escapeHtml(item.serves) + '</span>'
-        : '';
-      const releaseHtml = claim
-        ? '<button class="item-release" data-release-id="' + item.id + '" aria-label="Release this item" title="Release this item">✕</button>'
-        : '';
-      return (
-        '<li class="item' + claimedClass + '" data-id="' + item.id + '">' +
-          '<div class="item-check">' + (claim ? '✓' : '') + '</div>' +
-          '<div class="item-text">' +
-            '<div class="item-name">' + escapeHtml(item.name) + '</div>' +
-            '<div class="item-note">' + escapeHtml(item.note) + '</div>' +
-            claimedByHtml +
-          '</div>' +
-          servesHtml +
-          releaseHtml +
-        '</li>'
-      );
-    }).join('');
+  function sameName(a, b) {
+    return !!a && !!b && a.trim().toLowerCase() === b.trim().toLowerCase();
+  }
+
+  function showNotice(html) {
+    const el = $('notice');
+    el.innerHTML = html;
+    el.hidden = false;
+  }
+
+  function isPermissionError(e) {
+    return /permission/i.test(String(e && (e.code || e.message || e)));
+  }
+
+  function writeErrorMessage(e) {
+    return isPermissionError(e)
+      ? "The sign-up list is locked right now (database permission denied). Let the host know!"
+      : 'Something went wrong, please try again.';
+  }
+
+  // ── EVENT LOADING ───────────────────────────────────────────────────────
+  function loadEvent(id) {
+    return new Promise((resolve, reject) => {
+      if (!/^[a-z0-9-]+$/.test(id)) return reject(new Error('bad id'));
+      const script = document.createElement('script');
+      script.src = 'events/' + id + '.js';
+      script.onload = () => {
+        const ev = (window.POTLUCK_EVENTS || {})[id];
+        ev ? resolve(ev) : reject(new Error('missing'));
+      };
+      script.onerror = () => reject(new Error('not found'));
+      document.head.appendChild(script);
+    });
+  }
+
+  const eventId = new URLSearchParams(location.search).get('event') || DEFAULT_EVENT_ID;
+  let EVENT;
+  try {
+    EVENT = await loadEvent(eventId);
+  } catch (e) {
+    syncPill.textContent = '';
+    showNotice("Couldn't find the event <code>" + escapeHtml(eventId) + "</code>. Check the link, or ask the host for the right one.");
+    throw e;
+  }
+
+  const FEATURES = Object.assign({ rsvp: false, writeIns: false, summary: false, dietaryTags: false }, EVENT.features);
+  const SECTIONS = EVENT.sections.map(s => ({
+    ...s,
+    items: s.items.map(item => ({ ...item, slots: Math.max(1, item.slots || 1), section: s }))
+  }));
+  const ITEMS = new Map();
+  SECTIONS.forEach(s => s.items.forEach(item => ITEMS.set(item.id, item)));
+
+  function dbPath(...parts) {
+    return [EVENT.dbPath, ...parts].filter(Boolean).join('/');
+  }
+
+  // ── THEME & STATIC CONTENT ──────────────────────────────────────────────
+  function applyEvent() {
+    const t = EVENT.theme || {};
+    const vars = {
+      '--primary': t.primary, '--accent': t.accent, '--accent-soft': t.accentSoft,
+      '--highlight': t.highlight, '--bg': t.background, '--hero-text': t.heroText
+    };
+    Object.entries(vars).forEach(([k, v]) => { if (v) document.documentElement.style.setProperty(k, v); });
+
+    document.title = EVENT.pageTitle || EVENT.heroTitle;
+    $('hero-strip').textContent = EVENT.heroStrip || '';
+    $('hero-title').textContent = EVENT.heroTitle || '';
+    $('hero-subtitle').textContent = EVENT.subtitle || '';
+    $('hero-when').textContent = EVENT.when || '';
+
+    const host = EVENT.hostProvides;
+    if (host && host.items && host.items.length) {
+      const banner = $('provided-banner');
+      banner.innerHTML = host.items
+        .map(i => '<span>' + escapeHtml(i.emoji) + '</span> ' + escapeHtml(i.label))
+        .join(' &nbsp;·&nbsp; ') + (host.suffix ? ' — ' + escapeHtml(host.suffix) : '');
+      banner.hidden = false;
+    }
+
+    // Footer lines come from the event file, which is trusted HTML.
+    $('footer').innerHTML = (EVENT.footer || []).map(line => '<p>' + line + '</p>').join('');
+
+    ['claim-tags', 'writein-tags'].forEach(id => {
+      $(id).innerHTML = '<legend>Dietary info <span style="font-weight:400">(optional)</span></legend><div class="tag-options">' +
+        Object.entries(DIETARY_TAGS).map(([key, label]) =>
+          '<label><input type="checkbox" value="' + key + '"> ' + escapeHtml(label) + '</label>'
+        ).join('') + '</div>';
+    });
+  }
+  applyEvent();
+
+  if (!firebaseConfig.apiKey || !firebaseConfig.databaseURL) {
+    showNotice("Firebase isn't configured yet — claims won't save. Edit the <code>firebaseConfig</code> object near the top of the script in <code>index.html</code>.");
+  }
+
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+
+  // ── STATE ───────────────────────────────────────────────────────────────
+  let claims = {};     // itemId → [{ id, name, note, tags, claimedAt }]
+  let writeIns = [];   // [{ id, dish, name, note, tags, createdAt }]
+  let rsvps = [];      // [{ id, name, adults, kids }]
+
+  try {
+    const savedName = window.localStorage.getItem('potluck-my-name');
+    if (savedName) nameInput.value = savedName;
+  } catch (e) {}
+
+  function myName() { return nameInput.value.trim(); }
+
+  function rememberName(name) {
+    nameInput.value = name;
+    try { window.localStorage.setItem('potluck-my-name', name); } catch (e) {}
+  }
+
+  nameInput.addEventListener('change', () => rememberName(myName()));
+  nameInput.addEventListener('input', renderAll);
+
+  // The first version of the page stored one claim per item as { name, claimedAt }.
+  // Newer claims are stored as a map of claimId → claim so items can have several slots.
+  function normalizeClaims(val) {
+    if (!val || typeof val !== 'object') return {};
+    if (typeof val.name === 'string') return { legacy: val };
+    return { ...val };
+  }
+
+  function claimList(val) {
+    return Object.entries(normalizeClaims(val))
+      .filter(([, c]) => c && typeof c.name === 'string')
+      .map(([id, c]) => ({ id, ...c }))
+      .sort((a, b) => String(a.claimedAt || '').localeCompare(String(b.claimedAt || '')));
+  }
+
+  function claimsFor(itemId) { return claims[itemId] || []; }
+  function myClaimOn(itemId) { return claimsFor(itemId).find(c => sameName(c.name, myName())); }
+
+  // ── RENDERING ───────────────────────────────────────────────────────────
+  function tagsHtml(tags) {
+    const valid = (tags || []).filter(t => DIETARY_TAGS[t]);
+    if (!valid.length || !FEATURES.dietaryTags) return '';
+    return '<span class="tags">' + valid.map(t => '<span class="tag">' + escapeHtml(DIETARY_TAGS[t]) + '</span>').join('') + '</span>';
+  }
+
+  function claimLineHtml(claim, releaseAttrs, label) {
+    return '<div class="item-claimed-by">' +
+      '<span>✓ ' + label + ' ' + escapeHtml(claim.name) +
+        (claim.note ? ' <span class="claim-note">— ' + escapeHtml(claim.note) + '</span>' : '') +
+      '</span>' +
+      '<button class="item-release" ' + releaseAttrs + ' aria-label="Release ' + escapeHtml(claim.name) + '’s claim" title="Release">✕</button>' +
+      tagsHtml(claim.tags) +
+    '</div>';
+  }
+
+  function itemHtml(item) {
+    const list = claimsFor(item.id);
+    const filled = Math.min(list.length, item.slots);
+    const full = filled >= item.slots;
+    const stateClass = full ? ' claimed' : (filled > 0 ? ' partial' : '');
+    const check = full ? '✓' : (filled > 0 ? filled + '/' + item.slots : '');
+
+    let slotsHtml = '';
+    if (item.slots > 1) {
+      const remaining = item.slots - filled;
+      const text = filled === 0 ? 'Need ' + item.slots
+        : remaining > 0 ? remaining + ' more needed'
+        : 'All ' + item.slots + ' claimed';
+      slotsHtml = '<div class="item-slots">' + text + '</div>';
+    }
+
+    const status = full ? 'claimed by ' + list.map(c => c.name).join(', ')
+      : filled > 0 ? filled + ' of ' + item.slots + ' claimed'
+      : 'available';
+
+    return (
+      '<li class="item' + stateClass + '" data-id="' + escapeHtml(item.id) + '" role="button" tabindex="0" aria-label="' + escapeHtml(item.name + ', ' + status) + '">' +
+        '<div class="item-check" aria-hidden="true">' + check + '</div>' +
+        '<div class="item-text">' +
+          '<div class="item-name">' + escapeHtml(item.name) + '</div>' +
+          (item.note ? '<div class="item-note">' + escapeHtml(item.note) + '</div>' : '') +
+          (list.length ? '' : tagsHtml(item.tags)) +
+          slotsHtml +
+          list.map(c => claimLineHtml(c,
+            'data-release-item="' + escapeHtml(item.id) + '" data-release-claim="' + escapeHtml(c.id) + '"',
+            'Claimed by')).join('') +
+        '</div>' +
+        (item.serves ? '<span class="item-serves">' + escapeHtml(item.serves) + '</span>' : '') +
+      '</li>'
+    );
+  }
+
+  function cardHeader(icon, title, badge) {
+    return '<div class="card-header">' +
+      '<span class="icon" aria-hidden="true">' + escapeHtml(icon) + '</span>' +
+      '<h2>' + escapeHtml(title) + '</h2>' +
+      (badge ? '<span class="badge">' + escapeHtml(badge) + '</span>' : '') +
+    '</div>';
+  }
+
+  function sectionHtml(section) {
+    const n = section.items.length;
+    const countText = n + (n === 1 ? ' item' : ' items');
+    const badge = section.badge ? section.badge.replace('{items}', countText) : countText;
+    return '<section class="card">' +
+      cardHeader(section.icon, section.title, badge) +
+      '<ul class="item-list' + (section.layout === 'grid' ? ' grid-layout' : '') + '">' +
+        section.items.map(itemHtml).join('') +
+      '</ul>' +
+      (section.footnote ? '<div class="card-footnote">' + escapeHtml(section.footnote) + '</div>' : '') +
+    '</section>';
+  }
+
+  function progress() {
+    let total = 0, filled = 0;
+    const needed = [];
+    SECTIONS.filter(s => !s.optional).forEach(s => s.items.forEach(item => {
+      const have = Math.min(claimsFor(item.id).length, item.slots);
+      total += item.slots;
+      filled += have;
+      if (have < item.slots) needed.push({ item, remaining: item.slots - have });
+    }));
+    return { total, filled, needed };
+  }
+
+  function myItems() {
+    const name = myName();
+    if (!name) return [];
+    const mine = [];
+    ITEMS.forEach(item => { if (myClaimOn(item.id)) mine.push(item.name); });
+    writeIns.forEach(w => { if (sameName(w.name, name)) mine.push(w.dish); });
+    return mine;
+  }
+
+  function summaryHtml() {
+    const { total, filled, needed } = progress();
+    const pct = total ? Math.round((filled / total) * 100) : 0;
+    const mine = myItems();
+    return '<section class="card" aria-label="Sign-up progress">' +
+      cardHeader('📋', "What's Covered", pct + '% claimed') +
+      '<div class="summary-body">' +
+        '<div>' +
+          '<div class="progress-label"><span>' + filled + ' of ' + total + ' spots claimed</span>' +
+            '<span>' + (total - filled) + ' to go</span></div>' +
+          '<div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="' + total + '" aria-valuenow="' + filled + '">' +
+            '<div class="progress-fill" style="width:' + pct + '%"></div></div>' +
+        '</div>' +
+        (mine.length
+          ? '<div class="summary-row"><h3>You’re bringing</h3><div class="chip-list">' +
+              mine.map(m => '<span class="chip mine">' + escapeHtml(m) + '</span>').join('') + '</div></div>'
+          : '') +
+        '<div class="summary-row"><h3>Still needed</h3>' +
+          (needed.length
+            ? '<div class="chip-list">' + needed.map(n =>
+                '<span class="chip">' + escapeHtml(n.item.name) + (n.remaining > 1 ? ' ×' + n.remaining : '') + '</span>'
+              ).join('') + '</div>'
+            : '<div class="summary-done">Everything’s covered! 🎉</div>') +
+        '</div>' +
+      '</div>' +
+      (needed.length
+        ? '<div class="card-actions"><button class="btn btn-soft" data-action="copy-needed">📋 Copy list for the group chat</button></div>'
+        : '') +
+    '</section>';
+  }
+
+  function rsvpHtml() {
+    const adults = rsvps.reduce((n, r) => n + (r.adults || 0), 0);
+    const kids = rsvps.reduce((n, r) => n + (r.kids || 0), 0);
+    const people = adults + kids;
+    const badge = people + (people === 1 ? ' person' : ' people') + ' coming';
+    const mine = rsvps.find(r => sameName(r.name, myName()));
+    return '<section class="card">' +
+      cardHeader('🙋🏽', "Who's Coming", badge) +
+      (rsvps.length
+        ? '<ul class="item-list">' + rsvps.map(r => {
+            const parts = [];
+            if (r.adults) parts.push(r.adults + (r.adults === 1 ? ' adult' : ' adults'));
+            if (r.kids) parts.push(r.kids + (r.kids === 1 ? ' kid' : ' kids'));
+            return '<li class="item claimed-rsvp" data-rsvp-key="' + escapeHtml(r.id) + '" role="button" tabindex="0" aria-label="Edit RSVP for ' + escapeHtml(r.name) + '">' +
+              '<div class="item-text"><div class="item-name">' + escapeHtml(r.name) + '</div>' +
+              '<div class="item-note">' + escapeHtml(parts.join(' · ') || '—') + '</div></div>' +
+              '<button class="item-release" style="align-self:center" data-remove-rsvp="' + escapeHtml(r.id) + '" aria-label="Remove RSVP for ' + escapeHtml(r.name) + '" title="Remove">✕</button>' +
+            '</li>';
+          }).join('') + '</ul>'
+        : '<div class="card-empty">No RSVPs yet — be the first!</div>') +
+      '<div class="card-actions"><button class="btn btn-primary" data-action="rsvp">' +
+        (mine ? '✏️ Update my RSVP' : '🙋🏽 RSVP') + '</button>' +
+        (rsvps.length ? '<span style="font-size:12px;color:var(--muted);align-self:center">' +
+          adults + ' adults · ' + kids + ' kids</span>' : '') +
+      '</div>' +
+    '</section>';
+  }
+
+  function writeInsHtml() {
+    return '<section class="card">' +
+      cardHeader('🍲', 'Bringing Something Else', 'Family favorites') +
+      (writeIns.length
+        ? '<ul class="item-list">' + writeIns.map(w =>
+            '<li class="item claimed-writein">' +
+              '<div class="item-check" aria-hidden="true" style="background:var(--primary);border-color:var(--primary);color:#fff">✓</div>' +
+              '<div class="item-text">' +
+                '<div class="item-name">' + escapeHtml(w.dish) + '</div>' +
+                (w.note ? '<div class="item-note">' + escapeHtml(w.note) + '</div>' : '') +
+                claimLineHtml({ name: w.name, tags: w.tags }, 'data-remove-writein="' + escapeHtml(w.id) + '"', 'Brought by') +
+              '</div>' +
+            '</li>'
+          ).join('') + '</ul>'
+        : '<div class="card-empty">Have a signature dish that isn’t listed? Add it here so nobody doubles up.</div>') +
+      '<div class="card-actions"><button class="btn btn-primary" data-action="add-writein">＋ Add a dish</button></div>' +
+    '</section>';
   }
 
   function renderAll() {
-    Object.keys(DATA).forEach(renderSection);
+    const html = [];
+    if (FEATURES.summary) html.push(summaryHtml());
+    if (FEATURES.rsvp) html.push(rsvpHtml());
+    let lastFood = -1;
+    SECTIONS.forEach((s, i) => { if (s.food) lastFood = i; });
+    SECTIONS.forEach((s, i) => {
+      html.push(sectionHtml(s));
+      if (FEATURES.writeIns && i === lastFood) html.push(writeInsHtml());
+    });
+    if (FEATURES.writeIns && lastFood === -1) html.push(writeInsHtml());
+
+    // Keep keyboard focus on the same element across re-renders.
+    const active = document.activeElement;
+    const focusKey = active && sectionsEl.contains(active)
+      ? ['data-id', 'data-rsvp-key', 'data-action'].map(a => active.getAttribute(a) && '[' + a + '="' + CSS.escape(active.getAttribute(a)) + '"]').find(Boolean)
+      : null;
+    sectionsEl.innerHTML = html.join('');
+    if (focusKey) { const el = sectionsEl.querySelector(focusKey); if (el) el.focus(); }
   }
 
-  function findItemById(id) {
-    for (const key of Object.keys(DATA)) {
-      const found = DATA[key].find(i => i.id === id);
-      if (found) return found;
-    }
-    return null;
-  }
+  // ── MODALS ──────────────────────────────────────────────────────────────
+  let lastFocus = null;
 
-  function renderSectionForItem(itemId) {
-    const sectionKey = itemId.split('-')[0];
-    renderSection(sectionKey);
-  }
-
-  async function claimItem(itemId, name) {
-    const key = sanitizeKey(itemId);
-    const itemRef = ref(db, 'claims/' + key);
-    try {
-      const snap = await get(itemRef);
-      if (snap.exists()) {
-        const existing = snap.val();
-        claims[itemId] = existing;
-        renderSectionForItem(itemId);
-        return { ok: false, claimedBy: existing.name };
-      }
-      const claimData = { name, claimedAt: new Date().toISOString() };
-      await set(itemRef, claimData);
-      return { ok: true };
-    } catch (e) {
-      return { ok: false, error: true };
-    }
-  }
-
-  async function unclaimItem(itemId) {
-    const key = sanitizeKey(itemId);
-    try {
-      await remove(ref(db, 'claims/' + key));
-    } catch (e) {}
-  }
-
-  function openModalFor(itemId) {
-    const item = findItemById(itemId);
-    if (!item) return;
-    pendingItemId = itemId;
-    modalItemName.textContent = item.name;
-    modalNameInput.value = nameInput.value.trim();
-    modalError.style.display = 'none';
+  function openModal(overlay, focusEl) {
+    lastFocus = document.activeElement;
     overlay.classList.add('open');
-    setTimeout(() => modalNameInput.focus(), 50);
+    setTimeout(() => focusEl && focusEl.focus(), 50);
   }
 
-  function closeModal() {
+  function closeModal(overlay) {
     overlay.classList.remove('open');
-    pendingItemId = null;
+    if (lastFocus && document.contains(lastFocus)) lastFocus.focus();
+    lastFocus = null;
   }
 
-  document.querySelectorAll('.item-list').forEach(ul => {
-    ul.addEventListener('click', async (e) => {
-      const releaseBtn = e.target.closest('.item-release');
-      if (releaseBtn) {
-        const itemId = releaseBtn.dataset.releaseId;
-        const claim = claims[itemId];
-        const item = findItemById(itemId);
-        if (claim && item) {
-          pendingReleaseId = itemId;
-          document.getElementById('release-item-name').innerHTML =
-            escapeHtml(item.name) + '<br><span style="color: var(--muted); font-size: 12px;">Currently claimed by ' + escapeHtml(claim.name) + '</span>';
-          releaseOverlay.classList.add('open');
-        }
-        return;
-      }
-
-      const li = e.target.closest('.item');
-      if (!li) return;
-      const itemId = li.dataset.id;
-      const claim = claims[itemId];
-      const myName = nameInput.value.trim();
-
-      if (claim) {
-        if (myName && claim.name.toLowerCase() === myName.toLowerCase()) {
-          await unclaimItem(itemId);
-        } else {
-          openModalFor(itemId);
-          modalConfirm.textContent = 'Release & re-claim';
-          document.getElementById('modal-title').textContent = 'Already claimed';
-          modalError.textContent = 'Currently claimed by ' + claim.name + '. Enter your name to take it instead.';
-          modalError.style.display = 'block';
-        }
-        return;
-      }
-
-      if (myName) {
-        const res = await claimItem(itemId, myName);
-        if (!res.ok && res.claimedBy) {
-          openModalFor(itemId);
-          modalError.textContent = res.claimedBy + ' just claimed this — try another item!';
-          modalError.style.display = 'block';
-        }
-      } else {
-        document.getElementById('modal-title').textContent = 'Claim this item';
-        modalConfirm.textContent = 'Claim it';
-        openModalFor(itemId);
-      }
+  document.querySelectorAll('.modal-overlay').forEach(overlay => {
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay || e.target.closest('[data-close]')) closeModal(overlay);
     });
   });
 
-  releaseConfirm.addEventListener('click', async () => {
-    if (pendingReleaseId) {
-      await unclaimItem(pendingReleaseId);
-    }
-    closeReleaseModal();
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    const open = document.querySelector('.modal-overlay.open');
+    if (open) closeModal(open);
   });
-  releaseCancel.addEventListener('click', closeReleaseModal);
-  releaseOverlay.addEventListener('click', (e) => { if (e.target === releaseOverlay) closeReleaseModal(); });
 
-  modalConfirm.addEventListener('click', async () => {
-    const name = modalNameInput.value.trim();
-    if (!name) {
-      modalError.textContent = 'Please enter your name.';
-      modalError.style.display = 'block';
+  function setError(id, text) {
+    const el = $(id);
+    el.textContent = text || '';
+    el.hidden = !text;
+  }
+
+  function readTags(fieldsetId) {
+    return [...$(fieldsetId).querySelectorAll('input:checked')].map(i => i.value);
+  }
+
+  function writeTags(fieldsetId, tags) {
+    $(fieldsetId).querySelectorAll('input').forEach(i => { i.checked = (tags || []).includes(i.value); });
+  }
+
+  // Generic confirm / info dialog. onConfirm may return an error message to keep it open.
+  let confirmHandler = null;
+  function confirmDialog({ title, message, detail, confirmLabel, danger, onConfirm, infoOnly }) {
+    $('confirm-title').textContent = title;
+    $('confirm-message').textContent = message || '';
+    $('confirm-detail').textContent = detail || '';
+    $('confirm-detail').hidden = !detail;
+    const ok = $('confirm-ok');
+    ok.textContent = confirmLabel;
+    ok.classList.toggle('danger', !!danger);
+    ok.disabled = false;
+    $('confirm-cancel').hidden = !!infoOnly;
+    setError('confirm-error', '');
+    confirmHandler = onConfirm || null;
+    openModal($('confirm-overlay'), ok);
+  }
+
+  $('confirm-ok').addEventListener('click', async () => {
+    const ok = $('confirm-ok');
+    if (confirmHandler) {
+      ok.disabled = true;
+      const err = await confirmHandler();
+      ok.disabled = false;
+      if (err) return setError('confirm-error', err);
+    }
+    closeModal($('confirm-overlay'));
+  });
+
+  // ── CLAIMS ──────────────────────────────────────────────────────────────
+  function claimRef(itemId) { return ref(db, dbPath('claims', sanitizeKey(itemId))); }
+
+  // Adds a claim atomically, so two people can't both take the last slot.
+  // Returns 'ok', 'full', 'mine', or an error message.
+  async function claimItem(item, claim, { takeover = false } = {}) {
+    const claimId = push(ref(db, dbPath('claims'))).key;
+    let outcome = 'full';
+    try {
+      const result = await runTransaction(claimRef(item.id), (current) => {
+        const existing = normalizeClaims(current);
+        const list = claimList(current);
+        if (list.some(c => sameName(c.name, claim.name))) { outcome = 'mine'; return; }
+        if (takeover) { outcome = 'ok'; return { [claimId]: claim }; }
+        if (list.length >= item.slots) { outcome = 'full'; return; }
+        existing[claimId] = claim;
+        outcome = 'ok';
+        return existing;
+      });
+      return result.committed ? 'ok' : outcome;
+    } catch (e) {
+      return writeErrorMessage(e);
+    }
+  }
+
+  async function releaseClaim(itemId, claimId) {
+    try {
+      await runTransaction(claimRef(itemId), (current) => {
+        const existing = normalizeClaims(current);
+        delete existing[claimId];
+        return Object.keys(existing).length ? existing : null;
+      });
+      return null;
+    } catch (e) {
+      return writeErrorMessage(e);
+    }
+  }
+
+  let claimTarget = null; // { item, takeover }
+
+  function openClaimModal(item, { takeover = false, holders = [] } = {}) {
+    claimTarget = { item, takeover };
+    $('claim-title').textContent = takeover ? 'Already claimed' : 'Claim this item';
+    $('claim-item-name').textContent = item.name;
+    $('claim-confirm').textContent = takeover ? 'Release & re-claim' : 'Claim it';
+    $('claim-confirm').disabled = false;
+    $('claim-name').value = myName();
+    $('claim-note').value = '';
+    const showTags = FEATURES.dietaryTags && item.section.food;
+    $('claim-tags').hidden = !showTags;
+    writeTags('claim-tags', showTags ? item.tags : []);
+    setError('claim-error', takeover
+      ? 'Currently claimed by ' + holders.map(c => c.name).join(', ') + '. Enter your name to take it instead.'
+      : '');
+    openModal($('claim-overlay'), myName() ? $('claim-note') : $('claim-name'));
+  }
+
+  $('claim-confirm').addEventListener('click', async () => {
+    if (!claimTarget) return;
+    const name = $('claim-name').value.trim();
+    if (!name) return setError('claim-error', 'Please enter your name.');
+    const { item, takeover } = claimTarget;
+    const claim = { name, claimedAt: new Date().toISOString() };
+    const note = $('claim-note').value.trim();
+    if (note) claim.note = note;
+    const tags = $('claim-tags').hidden ? [] : readTags('claim-tags');
+    if (tags.length) claim.tags = tags;
+
+    rememberName(name);
+    $('claim-confirm').disabled = true;
+    const res = await claimItem(item, claim, { takeover });
+    $('claim-confirm').disabled = false;
+
+    if (res === 'ok') {
+      claimTarget = null;
+      closeModal($('claim-overlay'));
+    } else if (res === 'mine') {
+      setError('claim-error', 'You’ve already claimed this one!');
+    } else if (res === 'full') {
+      const holders = claimsFor(item.id).map(c => c.name).join(', ');
+      setError('claim-error', item.slots === 1 && holders
+        ? holders + ' just claimed this — try another item!'
+        : 'This just filled up — try another item!');
+    } else {
+      setError('claim-error', res);
+    }
+  });
+  $('claim-name').addEventListener('keydown', (e) => { if (e.key === 'Enter') $('claim-confirm').click(); });
+  $('claim-note').addEventListener('keydown', (e) => { if (e.key === 'Enter') $('claim-confirm').click(); });
+
+  function onItemActivate(itemId) {
+    const item = ITEMS.get(itemId);
+    if (!item) return;
+    const list = claimsFor(itemId);
+    const mine = myClaimOn(itemId);
+
+    if (mine) {
+      confirmDialog({
+        title: 'Release your claim?',
+        message: item.name,
+        detail: 'You (' + mine.name + ') signed up to bring this.',
+        confirmLabel: 'Release it',
+        danger: true,
+        onConfirm: () => releaseClaim(itemId, mine.id)
+      });
+    } else if (list.length < item.slots) {
+      openClaimModal(item);
+    } else if (item.slots === 1) {
+      openClaimModal(item, { takeover: true, holders: list });
+    } else {
+      confirmDialog({
+        title: 'All spots taken',
+        message: item.name,
+        detail: 'Claimed by ' + list.map(c => c.name).join(', ') + '. Use ✕ to release a spot if plans change.',
+        confirmLabel: 'OK',
+        infoOnly: true
+      });
+    }
+  }
+
+  // ── WRITE-INS ───────────────────────────────────────────────────────────
+  function openWriteInModal() {
+    $('writein-dish').value = '';
+    $('writein-name').value = myName();
+    $('writein-note').value = '';
+    $('writein-tags').hidden = !FEATURES.dietaryTags;
+    writeTags('writein-tags', []);
+    setError('writein-error', '');
+    $('writein-confirm').disabled = false;
+    openModal($('writein-overlay'), $('writein-dish'));
+  }
+
+  $('writein-confirm').addEventListener('click', async () => {
+    const dish = $('writein-dish').value.trim();
+    const name = $('writein-name').value.trim();
+    if (!dish) return setError('writein-error', 'What dish are you bringing?');
+    if (!name) return setError('writein-error', 'Please enter your name.');
+    const entry = { dish, name, createdAt: new Date().toISOString() };
+    const note = $('writein-note').value.trim();
+    if (note) entry.note = note;
+    const tags = FEATURES.dietaryTags ? readTags('writein-tags') : [];
+    if (tags.length) entry.tags = tags;
+
+    rememberName(name);
+    $('writein-confirm').disabled = true;
+    try {
+      await set(push(ref(db, dbPath('writeins'))), entry);
+      closeModal($('writein-overlay'));
+    } catch (e) {
+      setError('writein-error', writeErrorMessage(e));
+    }
+    $('writein-confirm').disabled = false;
+  });
+
+  // ── RSVPs ───────────────────────────────────────────────────────────────
+  let rsvpEditingKey = null;
+
+  function rsvpKey(name) { return sanitizeKey(name.trim().toLowerCase()); }
+
+  function openRsvpModal(existing) {
+    existing = existing || rsvps.find(r => sameName(r.name, myName()));
+    rsvpEditingKey = existing ? existing.id : null;
+    $('rsvp-title').textContent = existing ? 'Update RSVP' : 'RSVP';
+    $('rsvp-name').value = existing ? existing.name : myName();
+    $('rsvp-adults').value = existing ? existing.adults || 0 : 1;
+    $('rsvp-kids').value = existing ? existing.kids || 0 : 0;
+    setError('rsvp-error', '');
+    $('rsvp-confirm').disabled = false;
+    openModal($('rsvp-overlay'), $('rsvp-name').value ? $('rsvp-adults') : $('rsvp-name'));
+  }
+
+  function countValue(id) {
+    const n = parseInt($(id).value, 10);
+    return Number.isFinite(n) ? Math.min(Math.max(n, 0), 30) : 0;
+  }
+
+  $('rsvp-confirm').addEventListener('click', async () => {
+    const name = $('rsvp-name').value.trim();
+    const adults = countValue('rsvp-adults');
+    const kids = countValue('rsvp-kids');
+    if (!name) return setError('rsvp-error', 'Please enter your name.');
+    if (adults + kids < 1) return setError('rsvp-error', 'Add at least one person.');
+
+    rememberName(name);
+    $('rsvp-confirm').disabled = true;
+    try {
+      const key = rsvpKey(name);
+      await set(ref(db, dbPath('rsvps', key)), { name, adults, kids, updatedAt: new Date().toISOString() });
+      if (rsvpEditingKey && rsvpEditingKey !== key) await remove(ref(db, dbPath('rsvps', rsvpEditingKey)));
+      closeModal($('rsvp-overlay'));
+    } catch (e) {
+      setError('rsvp-error', writeErrorMessage(e));
+    }
+    $('rsvp-confirm').disabled = false;
+  });
+
+  // ── COPY "STILL NEEDED" ─────────────────────────────────────────────────
+  async function copyText(text) {
+    try { await navigator.clipboard.writeText(text); return true; } catch (e) {}
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.setAttribute('readonly', '');
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    let ok = false;
+    try { ok = document.execCommand('copy'); } catch (e) {}
+    ta.remove();
+    return ok;
+  }
+
+  async function copyNeeded(button) {
+    const { needed } = progress();
+    const link = location.href.split('#')[0];
+    const text = 'Still needed for ' + (EVENT.heroTitle || 'the potluck') + ':\n' +
+      needed.map(n => '• ' + n.item.name + (n.remaining > 1 ? ' (×' + n.remaining + ')' : '')).join('\n') +
+      '\n\nSign up here: ' + link;
+    if (await copyText(text)) {
+      button.textContent = '✓ Copied!';
+      setTimeout(() => { if (document.contains(button)) button.textContent = '📋 Copy list for the group chat'; }, 2000);
+    } else {
+      confirmDialog({ title: 'Copy this list', message: 'Copying didn’t work here — select and copy the text below.', detail: text, confirmLabel: 'Done', infoOnly: true });
+    }
+  }
+
+  // ── EVENT DELEGATION ────────────────────────────────────────────────────
+  sectionsEl.addEventListener('click', (e) => {
+    const release = e.target.closest('[data-release-claim]');
+    if (release) {
+      const itemId = release.dataset.releaseItem;
+      const item = ITEMS.get(itemId);
+      const claim = claimsFor(itemId).find(c => c.id === release.dataset.releaseClaim);
+      if (item && claim) {
+        confirmDialog({
+          title: 'Release this item?',
+          message: item.name,
+          detail: 'Currently claimed by ' + claim.name,
+          confirmLabel: 'Release it',
+          danger: true,
+          onConfirm: () => releaseClaim(itemId, claim.id)
+        });
+      }
       return;
     }
-    nameInput.value = name;
-    try { window.localStorage.setItem('potluck-my-name', name); } catch (e) {}
-    const res = await claimItem(pendingItemId, name);
-    if (res.ok) {
-      closeModal();
-    } else if (res.claimedBy) {
-      modalError.textContent = res.claimedBy + ' just claimed this — try another item!';
-      modalError.style.display = 'block';
-    } else {
-      modalError.textContent = 'Something went wrong, please try again.';
-      modalError.style.display = 'block';
+
+    const removeWriteIn = e.target.closest('[data-remove-writein]');
+    if (removeWriteIn) {
+      const w = writeIns.find(x => x.id === removeWriteIn.dataset.removeWritein);
+      if (w) {
+        confirmDialog({
+          title: 'Remove this dish?',
+          message: w.dish,
+          detail: 'Added by ' + w.name,
+          confirmLabel: 'Remove it',
+          danger: true,
+          onConfirm: async () => {
+            try { await remove(ref(db, dbPath('writeins', w.id))); return null; }
+            catch (err) { return writeErrorMessage(err); }
+          }
+        });
+      }
+      return;
+    }
+
+    const removeRsvp = e.target.closest('[data-remove-rsvp]');
+    if (removeRsvp) {
+      const r = rsvps.find(x => x.id === removeRsvp.dataset.removeRsvp);
+      if (r) {
+        confirmDialog({
+          title: 'Remove this RSVP?',
+          message: r.name,
+          confirmLabel: 'Remove it',
+          danger: true,
+          onConfirm: async () => {
+            try { await remove(ref(db, dbPath('rsvps', r.id))); return null; }
+            catch (err) { return writeErrorMessage(err); }
+          }
+        });
+      }
+      return;
+    }
+
+    const action = e.target.closest('[data-action]');
+    if (action) {
+      if (action.dataset.action === 'add-writein') openWriteInModal();
+      if (action.dataset.action === 'rsvp') openRsvpModal();
+      if (action.dataset.action === 'copy-needed') copyNeeded(action);
+      return;
+    }
+
+    const rsvpRow = e.target.closest('[data-rsvp-key]');
+    if (rsvpRow) {
+      const r = rsvps.find(x => x.id === rsvpRow.dataset.rsvpKey);
+      if (r) openRsvpModal(r);
+      return;
+    }
+
+    const li = e.target.closest('.item[data-id]');
+    if (li) onItemActivate(li.dataset.id);
+  });
+
+  sectionsEl.addEventListener('keydown', (e) => {
+    if ((e.key === 'Enter' || e.key === ' ') && e.target.matches('[role="button"]')) {
+      e.preventDefault();
+      e.target.click();
     }
   });
 
-  modalCancel.addEventListener('click', closeModal);
-  overlay.addEventListener('click', (e) => { if (e.target === overlay) closeModal(); });
-  modalNameInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') modalConfirm.click(); });
+  // ── LIVE SYNC ───────────────────────────────────────────────────────────
+  const sync = { connected: false, loaded: false, error: false };
+
+  function updatePill() {
+    syncPill.classList.toggle('bad', sync.error || (sync.loaded && !sync.connected));
+    syncPill.textContent = sync.error ? 'Connection error'
+      : !sync.loaded ? 'Loading…'
+      : sync.connected ? 'Live · synced'
+      : 'Offline · reconnecting…';
+  }
+
+  function onSyncError(error) {
+    sync.error = true;
+    updatePill();
+    showNotice(isPermissionError(error)
+      ? '🔒 The sign-up list can’t load because the database is locked (permission denied). ' +
+        'Host: update the Realtime Database rules in the Firebase console — see <code>README.md</code>.'
+      : 'Can’t reach the sign-up list right now. Check your connection and refresh the page.');
+  }
 
   renderAll();
 
-  onValue(claimsRef, (snapshot) => {
-    const val = snapshot.val() || {};
-    const newClaims = {};
-    Object.keys(DATA).forEach(sectionKey => {
-      DATA[sectionKey].forEach(item => {
-        const key = sanitizeKey(item.id);
-        if (val[key]) newClaims[item.id] = val[key];
-      });
-    });
-    claims = newClaims;
-    renderAll();
-    syncPill.textContent = 'Live · synced';
-  }, (error) => {
-    syncPill.textContent = 'Connection error';
+  onValue(ref(db, '.info/connected'), (snap) => {
+    sync.connected = snap.val() === true;
+    updatePill();
   });
+
+  onValue(ref(db, dbPath('claims')), (snapshot) => {
+    const val = snapshot.val() || {};
+    const next = {};
+    ITEMS.forEach(item => {
+      const list = claimList(val[sanitizeKey(item.id)]);
+      if (list.length) next[item.id] = list;
+    });
+    claims = next;
+    sync.loaded = true;
+    renderAll();
+    updatePill();
+  }, onSyncError);
+
+  if (FEATURES.writeIns) {
+    onValue(ref(db, dbPath('writeins')), (snapshot) => {
+      const val = snapshot.val() || {};
+      writeIns = Object.entries(val)
+        .filter(([, w]) => w && typeof w.dish === 'string' && typeof w.name === 'string')
+        .map(([id, w]) => ({ id, ...w }))
+        .sort((a, b) => String(a.createdAt || '').localeCompare(String(b.createdAt || '')));
+      renderAll();
+    }, onSyncError);
+  }
+
+  if (FEATURES.rsvp) {
+    onValue(ref(db, dbPath('rsvps')), (snapshot) => {
+      const val = snapshot.val() || {};
+      rsvps = Object.entries(val)
+        .filter(([, r]) => r && typeof r.name === 'string')
+        .map(([id, r]) => ({ id, name: r.name, adults: Number(r.adults) || 0, kids: Number(r.kids) || 0 }))
+        .sort((a, b) => a.name.localeCompare(b.name));
+      renderAll();
+    }, onSyncError);
+  }
 </script>
 </body>
 </html>

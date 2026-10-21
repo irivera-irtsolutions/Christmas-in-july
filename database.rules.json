@@ -1,0 +1,38 @@
+{
+  "rules": {
+    "claims": {
+      ".read": true,
+      "$item": {
+        ".write": true,
+        "$claim": {
+          ".validate": "newData.hasChildren(['name', 'claimedAt']) && newData.child('name').isString() && newData.child('name').val().length > 0 && newData.child('name').val().length <= 40 && (!newData.child('note').exists() || (newData.child('note').isString() && newData.child('note').val().length <= 120))"
+        }
+      }
+    },
+    "events": {
+      "$event": {
+        ".read": true,
+        "claims": {
+          "$item": {
+            ".write": true,
+            "$claim": {
+              ".validate": "newData.hasChildren(['name', 'claimedAt']) && newData.child('name').isString() && newData.child('name').val().length > 0 && newData.child('name').val().length <= 40 && (!newData.child('note').exists() || (newData.child('note').isString() && newData.child('note').val().length <= 120))"
+            }
+          }
+        },
+        "writeins": {
+          "$id": {
+            ".write": true,
+            ".validate": "newData.hasChildren(['dish', 'name', 'createdAt']) && newData.child('dish').isString() && newData.child('dish').val().length > 0 && newData.child('dish').val().length <= 60 && newData.child('name').isString() && newData.child('name').val().length > 0 && newData.child('name').val().length <= 40 && (!newData.child('note').exists() || (newData.child('note').isString() && newData.child('note').val().length <= 120))"
+          }
+        },
+        "rsvps": {
+          "$id": {
+            ".write": true,
+            ".validate": "newData.hasChildren(['name', 'adults', 'kids']) && newData.child('name').isString() && newData.child('name').val().length > 0 && newData.child('name').val().length <= 40 && newData.child('adults').isNumber() && newData.child('adults').val() >= 0 && newData.child('adults').val() <= 30 && newData.child('kids').isNumber() && newData.child('kids').val() >= 0 && newData.child('kids').val() <= 30"
+          }
+        }
+      }
+    }
+  }
+}

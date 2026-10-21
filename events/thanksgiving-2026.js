@@ -92,16 +92,6 @@ window.POTLUCK_EVENTS['thanksgiving-2026'] = {
         { id: 'games-5', name: '🎨 Kids Craft Station', note: 'Handprint turkeys & coloring pages for the little ones' },
         { id: 'games-6', name: '📸 Family Photo', note: 'Someone bring a tripod for the group shot!' }
       ]
-    },
-    {
-      key: 'supplies', title: 'Supplies Needed', icon: '🧻', badge: 'Essentials',
-      items: [
-        { id: 'supplies-0', name: 'Paper Plates & Napkins', note: 'Fall colors if possible 🍂' },
-        { id: 'supplies-1', name: 'Plastic Utensils & Cups', note: 'Forks, knives, spoons + cups for 25+' },
-        { id: 'supplies-2', name: 'Serving Spoons & Tongs', note: 'For the potluck dishes — bring with your dish!' },
-        { id: 'supplies-3', name: 'Aluminum Foil & Plastic Wrap', note: 'For covering dishes' },
-        { id: 'supplies-4', name: 'To-Go Containers', note: 'For leftovers — everyone takes a plate home!' }
-      ]
     }
   ]
 };
